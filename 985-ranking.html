@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国985大学 计算机/AI/软件 综合排名 & 2026夏令营信息</title>
+<style>
+  :root {
+    --t0: #1a1a2e;
+    --t1: #16213e;
+    --t2: #0f3460;
+    --t3: #533483;
+    --t4: #7b7b7b;
+    --gold: #f0c060;
+    --accent: #e94560;
+    --bg: #f8f9fc;
+    --card-bg: #ffffff;
+    --text: #2c3e50;
+    --text-light: #5a6a7a;
+    --border: #e2e8f0;
+    --tag-bg: #eef2ff;
+    --tag-text: #4f46e5;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #fff;
+    padding: 48px 20px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(233,68,96,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(240,192,96,0.06) 0%, transparent 50%);
+    animation: headerPulse 8s ease-in-out infinite;
+  }
+  @keyframes headerPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  .header h1 {
+    font-size: 2.2em;
+    font-weight: 800;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
+  }
+  .header .subtitle {
+    margin-top: 10px;
+    font-size: 1.05em;
+    opacity: 0.85;
+    position: relative;
+    z-index: 1;
+  }
+  .header .user-info {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 0.9em;
+    opacity: 0.75;
+    position: relative;
+    z-index: 1;
+  }
+  .header .user-info span {
+    background: rgba(255,255,255,0.1);
+    padding: 4px 14px;
+    border-radius: 20px;
+  }
+
+  /* Legend */
+  .legend {
+    max-width: 1200px;
+    margin: 24px auto 0;
+    padding: 0 20px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .legend .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.78em;
+    font-weight: 700;
+    color: #fff;
+  }
+  .badge-t0 { background: #1a1a2e; }
+  .badge-t1 { background: #e94560; }
+  .badge-t2 { background: #f0a040; }
+  .badge-t3 { background: #4f8cff; }
+  .badge-t4 { background: #999; }
+
+  /* Container */
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px 20px;
+  }
+
+  /* Filters */
+  .filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    align-items: center;
+  }
+  .filters label { font-weight: 600; font-size: 0.9em; }
+  .filters select, .filters input {
+    padding: 8px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.9em;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .filters select:focus, .filters input:focus { border-color: var(--accent); }
+  .filters input { width: 200px; }
+
+  /* Table */
+  .table-wrap {
+    background: var(--card-bg);
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88em;
+  }
+  thead th {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 14px 10px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.82em;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+  tbody td {
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tbody tr:hover { background: #f8faff; }
+  tbody tr.tier-t0 { border-left: 4px solid #1a1a2e; }
+  tbody tr.tier-t1 { border-left: 4px solid #e94560; }
+  tbody tr.tier-t2 { border-left: 4px solid #f0a040; }
+  tbody tr.tier-t3 { border-left: 4px solid #4f8cff; }
+  tbody tr.tier-t4 { border-left: 4px solid #999; }
+
+  .rank-num {
+    font-size: 1.5em;
+    font-weight: 800;
+    color: var(--accent);
+    text-align: center;
+    min-width: 36px;
+  }
+  .school-name {
+    font-weight: 700;
+    font-size: 1.02em;
+    white-space: nowrap;
+  }
+  .tier-tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.72em;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+  .tier-tag.t0 { background: #1a1a2e; }
+  .tier-tag.t1 { background: #e94560; }
+  .tier-tag.t2 { background: #f0a040; }
+  .tier-tag.t3 { background: #4f8cff; }
+  .tier-tag.t4 { background: #999; }
+
+  .location {
+    font-size: 0.85em;
+    color: var(--text-light);
+  }
+  .grade {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.82em;
+  }
+  .grade-aplus { background: #ffe0e0; color: #c0392b; }
+  .grade-a { background: #fff3e0; color: #e67e22; }
+  .grade-aminus { background: #fff8e1; color: #f39c12; }
+  .grade-bplus { background: #e8f0fe; color: #2c6fce; }
+  .grade-b { background: #e8f0fe; color: #4a90d9; }
+  .grade-bminus { background: #f0f0f0; color: #666; }
+  .grade-cplus { background: #f5f5f5; color: #888; }
+  .grade-c { background: #f5f5f5; color: #999; }
+  .grade-cminus { background: #fafafa; color: #aaa; }
+
+  .camp-info {
+    font-size: 0.82em;
+    line-height: 1.5;
+  }
+  .camp-info a {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .camp-info a:hover { text-decoration: underline; }
+  .camp-status {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.72em;
+    font-weight: 600;
+  }
+  .status-open { background: #d4edda; color: #155724; }
+  .status-soon { background: #fff3cd; color: #856404; }
+  .status-closed { background: #f8d7da; color: #721c24; }
+  .status-tbd { background: #e2e3e5; color: #6c757d; }
+
+  .highlight-box {
+    font-size: 0.82em;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 32px 20px;
+    font-size: 0.82em;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .header h1 { font-size: 1.5em; }
+    table { font-size: 0.78em; }
+    thead th, tbody td { padding: 8px 6px; }
+  }
+
+  /* Tooltip */
+  .info-icon {
+    display: inline-block;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    text-align: center;
+    line-height: 16px;
+    font-size: 10px;
+    cursor: help;
+    font-weight: 700;
+    margin-left: 4px;
+  }
+
+  .search-highlight { background: #fff3a8; padding: 0 2px; }
+
+  /* Print */
+  @media print {
+    .header { padding: 20px; }
+    .filters { display: none; }
+    .table-wrap { box-shadow: none; }
+    thead th { background: #1a1a2e !important; color: #fff !important; -webkit-print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>中国39所985大学 · 计算机/AI/软件方向 综合排名</h1>
+  <div class="subtitle">评估维度：学科评估 + CSRankings科研产出 + 行业认可度 + 综合声誉 + 考研难度</div>
+  <div class="user-info">
+    <span>目标方向：AI / 人工智能 / 软件</span>
+    <span>数据截止：2026年5月</span>
+    <span>夏令营年份：2026年暑期（面向2027届）</span>
+  </div>
+</div>
+
+<!-- Legend -->
+<div class="legend">
+  <span class="badge badge-t0">T0 顶尖</span>
+  <span class="badge badge-t1">T1 强校</span>
+  <span class="badge badge-t2">T2 实力派</span>
+  <span class="badge badge-t3">T3 985光环</span>
+  <span class="badge badge-t4">T4 末流985</span>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+
+<!-- Filters -->
+<div class="filters">
+  <label>筛选：</label>
+  <select id="tierFilter" onchange="applyFilters()">
+    <option value="all">全部梯队</option>
+    <option value="t0">T0 顶尖</option>
+    <option value="t1">T1 强校</option>
+    <option value="t2">T2 实力派</option>
+    <option value="t3">T3 985光环</option>
+    <option value="t4">T4 末流985</option>
+  </select>
+  <select id="gradeFilter" onchange="applyFilters()">
+    <option value="all">全部评估等级</option>
+    <option value="A+">A+</option>
+    <option value="A">A</option>
+    <option value="A-">A-</option>
+    <option value="B+">B+</option>
+    <option value="B">B</option>
+    <option value="B-">B-</option>
+    <option value="C+">C+</option>
+    <option value="C">C</option>
+    <option value="C-">C-</option>
+  </select>
+  <select id="campFilter" onchange="applyFilters()">
+    <option value="all">夏令营状态</option>
+    <option value="open">正在报名</option>
+    <option value="soon">即将发布</option>
+    <option value="tbd">待发布</option>
+  </select>
+  <input type="text" id="searchInput" placeholder="搜索学校或城市..." oninput="applyFilters()">
+</div>
+
+<!-- Table -->
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+  <th style="width:40px">排名</th>
+  <th style="width:110px">学校</th>
+  <th style="width:55px">梯队</th>
+  <th style="width:70px">所在地</th>
+  <th style="width:65px">学科评估</th>
+  <th style="width:130px">AI/CS核心优势</th>
+  <th style="width:150px">2026夏令营 · 报名时间</th>
+  <th style="width:200px">报名网站 / 官方渠道</th>
+</tr>
+</thead>
+<tbody>
+
+<!-- ====== T0 ====== -->
+<tr class="tier-t0" data-tier="t0" data-grade="A+" data-camp="soon">
+  <td class="rank-num">1</td>
+  <td class="school-name">清华大学</td>
+  <td><span class="tier-tag t0">T0</span></td>
+  <td class="location">北京 · 海淀</td>
+  <td><span class="grade grade-aplus">A+</span></td>
+  <td class="highlight-box">姚班/智班 · ML全球顶尖 · 全球CS第1(并列) · 行业第一品牌</td>
+  <td class="camp-info">
+    <span class="camp-status status-soon">预推免制</span><br>
+    2026级已取消夏令营，改为预推免<br>
+    预计7月初开放系统
+  </td>
+  <td class="camp-info">
+    <a href="https://yzbm.tsinghua.edu.cn" target="_blank">yzbm.tsinghua.edu.cn</a><br>
+    <a href="https://www.cs.tsinghua.edu.cn" target="_blank">cs.tsinghua.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t0" data-tier="t0" data-grade="A+" data-camp="tbd">
+  <td class="rank-num">2</td>
+  <td class="school-name">北京大学</td>
+  <td><span class="tier-tag t0">T0</span></td>
+  <td class="location">北京 · 海淀</td>
+  <td><span class="grade grade-aplus">A+</span></td>
+  <td class="highlight-box">CV全球第一 · 数理基础最强 · AGI前沿 · 全球CS第5</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    2026年夏令营预计5-6月发布通知
+  </td>
+  <td class="camp-info">
+    <a href="https://admission.pku.edu.cn" target="_blank">admission.pku.edu.cn</a><br>
+    <a href="https://cs.pku.edu.cn" target="_blank">cs.pku.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t0" data-tier="t0" data-grade="A+" data-camp="soon">
+  <td class="rank-num">3</td>
+  <td class="school-name">浙江大学</td>
+  <td><span class="tier-tag t0">T0</span></td>
+  <td class="location">浙江 · 杭州</td>
+  <td><span class="grade grade-aplus">A+</span></td>
+  <td class="highlight-box">AI论文全球第2 · 跨媒体计算 · 产业转化强 · 全球CS第3</td>
+  <td class="camp-info">
+    <span class="camp-status status-soon">预计5月底发布</span><br>
+    参考往年：5月下旬通知，6月25日前报名<br>
+    实习活动7-8月，面试8月下旬
+  </td>
+  <td class="camp-info">
+    <a href="https://yjsy.zju.edu.cn/grsinfo/zs/user/login" target="_blank">浙大研究生招生系统</a><br>
+    <a href="http://www.cs.zju.edu.cn" target="_blank">cs.zju.edu.cn</a><br>
+    咨询：cs_yjsk@zju.edu.cn
+  </td>
+</tr>
+
+<tr class="tier-t0" data-tier="t0" data-grade="A" data-camp="soon">
+  <td class="rank-num">4</td>
+  <td class="school-name">上海交通大学</td>
+  <td><span class="tier-tag t0">T0</span></td>
+  <td class="location">上海 · 闵行</td>
+  <td><span class="grade grade-a">A</span></td>
+  <td class="highlight-box">ACM班 · CV/机器人强 · 全球CS第1(并列) · 分数线天花板</td>
+  <td class="camp-info">
+    <span class="camp-status status-soon">预计6月发布</span><br>
+    2026年夏令营预计6月开放报名
+  </td>
+  <td class="camp-info">
+    <a href="https://ga.sjtu.edu.cn/zsgl/xlygl/default.aspx" target="_blank">上交研究生夏令营系统</a><br>
+    <a href="https://yzb.sjtu.edu.cn" target="_blank">yzb.sjtu.edu.cn</a>
+  </td>
+</tr>
+
+<!-- ====== T1 ====== -->
+<tr class="tier-t1" data-tier="t1" data-grade="A" data-camp="tbd">
+  <td class="rank-num">5</td>
+  <td class="school-name">南京大学</td>
+  <td><span class="tier-tag t1">T1</span></td>
+  <td class="location">江苏 · 南京</td>
+  <td><span class="grade grade-a">A</span></td>
+  <td class="highlight-box">AI全球第1 · LAMDA实验室(周志华) · ML算法世界顶级</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    LAMDA实验室单独招生，2026年通知预计5月发布<br>
+    参考：往年6月1日截止
+  </td>
+  <td class="camp-info">
+    <a href="https://www.lamda.nju.edu.cn" target="_blank">lamda.nju.edu.cn</a><br>
+    <a href="https://cs.nju.edu.cn" target="_blank">cs.nju.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t1" data-tier="t1" data-grade="A" data-camp="soon">
+  <td class="rank-num">6</td>
+  <td class="school-name">哈尔滨工业大学</td>
+  <td><span class="tier-tag t1">T1</span></td>
+  <td class="location">黑龙江 · 哈尔滨<br><small>深圳/威海校区</small></td>
+  <td><span class="grade grade-a">A</span></td>
+  <td class="highlight-box">NLP国内第一 · 招生规模大(350+) · 性价比极高</td>
+  <td class="camp-info">
+    <span class="camp-status status-soon">预计5-6月发布</span><br>
+    本部：5月7日-6月中旬报名<br>
+    深圳校区：需在推免系统确认
+  </td>
+  <td class="camp-info">
+    <a href="http://yzb.hit.edu.cn" target="_blank">yzb.hit.edu.cn</a><br>
+    <a href="http://cist.hitsz.edu.cn" target="_blank">cist.hitsz.edu.cn (深圳)</a><br>
+    深圳咨询：0755-26919647
+  </td>
+</tr>
+
+<tr class="tier-t1" data-tier="t1" data-grade="A" data-camp="soon">
+  <td class="rank-num">7</td>
+  <td class="school-name">北京航空航天大学</td>
+  <td><span class="tier-tag t1">T1</span></td>
+  <td class="location">北京 · 海淀</td>
+  <td><span class="grade grade-a">A</span></td>
+  <td class="highlight-box">虚拟现实国重 · 无人系统 · 军工背景 · 传闻第五轮A+</td>
+  <td class="camp-info">
+    <span class="camp-status status-soon">预计6月中下旬</span><br>
+    北航称为"暑期开放日"，非"夏令营"<br>
+    往年：6月20日-28日报名
+  </td>
+  <td class="camp-info">
+    <a href="https://scse.buaa.edu.cn" target="_blank">scse.buaa.edu.cn</a><br>
+    <a href="https://yzb.buaa.edu.cn" target="_blank">yzb.buaa.edu.cn</a><br>
+    电话：010-82313267
+  </td>
+</tr>
+
+<tr class="tier-t1" data-tier="t1" data-grade="A" data-camp="soon">
+  <td class="rank-num">8</td>
+  <td class="school-name">华中科技大学</td>
+  <td><span class="tier-tag t1">T1</span></td>
+  <td class="location">湖北 · 武汉</td>
+  <td><span class="grade grade-a">A</span></td>
+  <td class="highlight-box">模式识别/医学图像 · 华为大本营校招 · 产学研结合</td>
+  <td class="camp-info">
+    <span class="camp-status status-soon">预计6月上旬</span><br>
+    参考：6月上旬-6月下旬报名<br>
+    7月上旬举办
+  </td>
+  <td class="camp-info">
+    <a href="http://yanzhao.hust.edu.cn" target="_blank">yanzhao.hust.edu.cn</a><br>
+    <a href="http://cs.hust.edu.cn" target="_blank">cs.hust.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t1" data-tier="t1" data-grade="A" data-camp="soon">
+  <td class="rank-num">9</td>
+  <td class="school-name">电子科技大学</td>
+  <td><span class="tier-tag t1">T1</span></td>
+  <td class="location">四川 · 成都</td>
+  <td><span class="grade grade-a">A</span></td>
+  <td class="highlight-box">AI芯片 · 智能硬件 · 全球CSRankings AI第4 · 成都IT产业圈</td>
+  <td class="camp-info">
+    <span class="camp-status status-soon">预计6月中下旬</span><br>
+    参考往年：7月1日-3日报名<br>
+    7月10日-11日举办（清水河校区）
+  </td>
+  <td class="camp-info">
+    <a href="https://yzbm.uestc.edu.cn/logon" target="_blank">yzbm.uestc.edu.cn</a><br>
+    <a href="https://www.scse.uestc.edu.cn" target="_blank">scse.uestc.edu.cn</a><br>
+    咨询：028-61831209
+  </td>
+</tr>
+
+<tr class="tier-t1" data-tier="t1" data-grade="A-" data-camp="open">
+  <td class="rank-num">10</td>
+  <td class="school-name">中国科学技术大学</td>
+  <td><span class="tier-tag t1">T1</span></td>
+  <td class="location">安徽 · 合肥</td>
+  <td><span class="grade grade-aminus">A-</span></td>
+  <td class="highlight-box">ABC本科AI排名S级第1 · 数理底蕴深厚 · 全球AI前10</td>
+  <td class="camp-info">
+    <span class="camp-status status-open">科学岛夏令营报名中</span><br>
+    科学岛夏令营截止：<strong>2026年5月25日</strong><br>
+    计算机科学营预计6月中下旬发布
+  </td>
+  <td class="camp-info">
+    <a href="http://xly.ustc.edu.cn" target="_blank">xly.ustc.edu.cn</a><br>
+    <a href="https://cs.ustc.edu.cn" target="_blank">cs.ustc.edu.cn</a><br>
+    QQ群：824873014
+  </td>
+</tr>
+
+<tr class="tier-t1" data-tier="t1" data-grade="A+" data-camp="soon">
+  <td class="rank-num">11</td>
+  <td class="school-name">国防科技大学</td>
+  <td><span class="tier-tag t1">T1</span></td>
+  <td class="location">湖南 · 长沙</td>
+  <td><span class="grade grade-aplus">A+</span></td>
+  <td class="highlight-box">天河超算 · 体系结构顶级 · 需政审体检 · 地方生名额少</td>
+  <td class="camp-info">
+    <span class="camp-status status-soon">预计5-6月发布</span><br>
+    参考往年：6月底发布通知<br>
+    7-8月开展活动 · 需关注政审要求
+  </td>
+  <td class="camp-info">
+    <a href="https://yjszs.nudt.edu.cn" target="_blank">yjszs.nudt.edu.cn</a><br>
+    咨询：0731-87002026
+  </td>
+</tr>
+
+<!-- ====== T2 ====== -->
+<tr class="tier-t2" data-tier="t2" data-grade="A-" data-camp="soon">
+  <td class="rank-num">12</td>
+  <td class="school-name">西安交通大学</td>
+  <td><span class="tier-tag t2">T2</span></td>
+  <td class="location">陕西 · 西安</td>
+  <td><span class="grade grade-aminus">A-</span></td>
+  <td class="highlight-box">视觉信息处理 · 智能机器人 · 人机所 · 郑南宁院士</td>
+  <td class="camp-info">
+    <span class="camp-status status-soon">预计5月中下旬发布</span><br>
+    参考往年：6月1日-10日报名<br>
+    7-8月线上举办
+  </td>
+  <td class="camp-info">
+    <a href="http://yzbm.xjtu.edu.cn" target="_blank">yzbm.xjtu.edu.cn</a><br>
+    <a href="http://www.cs.xjtu.edu.cn" target="_blank">cs.xjtu.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t2" data-tier="t2" data-grade="A-" data-camp="tbd">
+  <td class="rank-num">13</td>
+  <td class="school-name">西北工业大学</td>
+  <td><span class="tier-tag t2">T2</span></td>
+  <td class="location">陕西 · 西安</td>
+  <td><span class="grade grade-aminus">A-</span></td>
+  <td class="highlight-box">传闻第五轮升至A+ · 军工/无人机AI · 三航特色</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    参考往年：6月13日-23日报名<br>
+    7月初举办
+  </td>
+  <td class="camp-info">
+    <a href="http://yzb.nwpu.edu.cn" target="_blank">yzb.nwpu.edu.cn</a><br>
+    <a href="https://jsj.nwpu.edu.cn" target="_blank">jsj.nwpu.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t2" data-tier="t2" data-grade="A-" data-camp="tbd">
+  <td class="rank-num">14</td>
+  <td class="school-name">北京理工大学</td>
+  <td><span class="tier-tag t2">T2</span></td>
+  <td class="location">北京 · 海淀</td>
+  <td><span class="grade grade-aminus">A-</span></td>
+  <td class="highlight-box">军工AI · 智能无人系统 · 入营门槛高(211需前8%)</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    往年：6月中旬通知<br>
+    优营率约45%-52%
+  </td>
+  <td class="camp-info">
+    <a href="https://cs.bit.edu.cn" target="_blank">cs.bit.edu.cn</a><br>
+    <a href="https://yz.bit.edu.cn" target="_blank">yz.bit.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t2" data-tier="t2" data-grade="A-" data-camp="tbd">
+  <td class="rank-num">15</td>
+  <td class="school-name">武汉大学</td>
+  <td><span class="tier-tag t2">T2</span></td>
+  <td class="location">湖北 · 武汉</td>
+  <td><span class="grade grade-aminus">A-</span></td>
+  <td class="highlight-box">AI研究院 · 遥感国重 · 综合名校 · 雷军母校</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    推免系统：yz.whu.edu.cn<br>
+    往年夏令营5-6月通知
+  </td>
+  <td class="camp-info">
+    <a href="https://cs.whu.edu.cn" target="_blank">cs.whu.edu.cn</a><br>
+    <a href="http://yz.whu.edu.cn" target="_blank">yz.whu.edu.cn</a><br>
+    电话：027-68775536
+  </td>
+</tr>
+
+<tr class="tier-t2" data-tier="t2" data-grade="A-" data-camp="soon">
+  <td class="rank-num">16</td>
+  <td class="school-name">同济大学</td>
+  <td><span class="tier-tag t2">T2</span></td>
+  <td class="location">上海 · 嘉定</td>
+  <td><span class="grade grade-aminus">A-</span></td>
+  <td class="highlight-box">智能驾驶 · 土木AI交叉 · 第五轮计算机A/软件A-</td>
+  <td class="camp-info">
+    <span class="camp-status status-soon">预计5-6月发布</span><br>
+    参考：6月上旬截止报名<br>
+    6月下旬举办 · 含机试+笔试+面试
+  </td>
+  <td class="camp-info">
+    <a href="https://yzbm.tongji.edu.cn" target="_blank">yzbm.tongji.edu.cn</a><br>
+    咨询：021-69585627
+  </td>
+</tr>
+
+<tr class="tier-t2" data-tier="t2" data-grade="A-" data-camp="tbd">
+  <td class="rank-num">17</td>
+  <td class="school-name">中南大学</td>
+  <td><span class="tier-tag t2">T2</span></td>
+  <td class="location">湖南 · 长沙</td>
+  <td><span class="grade grade-aminus">A-</span></td>
+  <td class="highlight-box">智能交通 · 医学AI交叉 · 分数线友好 · 性价比高</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    近年以预推免替代夏令营<br>
+    关注预推免(约8-9月)
+  </td>
+  <td class="camp-info">
+    <a href="https://cse.csu.edu.cn" target="_blank">cse.csu.edu.cn</a><br>
+    <a href="https://yz.csu.edu.cn" target="_blank">yz.csu.edu.cn</a><br>
+    电话：0731-88879609
+  </td>
+</tr>
+
+<tr class="tier-t2" data-tier="t2" data-grade="A-" data-camp="open">
+  <td class="rank-num">18</td>
+  <td class="school-name">东北大学</td>
+  <td><span class="tier-tag t2">T2</span></td>
+  <td class="location">辽宁 · 沈阳</td>
+  <td><span class="grade grade-aminus">A-</span></td>
+  <td class="highlight-box">自动化底子厚 · 老牌工科 · 分数友好 · 性价比高</td>
+  <td class="camp-info">
+    <span class="camp-status status-open">"知行海外"项目报名中</span><br>
+    新加坡AI菁英项目<strong>5月15日截止</strong><br>
+    导师团招生报名中(发邮件)
+  </td>
+  <td class="camp-info">
+    <a href="http://www.cse.neu.edu.cn" target="_blank">cse.neu.edu.cn</a><br>
+    联系：liuchen@cse.neu.edu.cn
+  </td>
+</tr>
+
+<tr class="tier-t2" data-tier="t2" data-grade="A-" data-camp="tbd">
+  <td class="rank-num">19</td>
+  <td class="school-name">吉林大学</td>
+  <td><span class="tier-tag t2">T2</span></td>
+  <td class="location">吉林 · 长春</td>
+  <td><span class="grade grade-aminus">A-</span></td>
+  <td class="highlight-box">符号计算与知识工程 · 底蕴深厚 · 规模大</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    参考往年：6月5日-20日报名<br>
+    2024年报录比 1936→258入营
+  </td>
+  <td class="camp-info">
+    <a href="https://yzb.jlu.edu.cn" target="_blank">yzb.jlu.edu.cn</a><br>
+    <a href="http://ccst.jlu.edu.cn" target="_blank">ccst.jlu.edu.cn</a><br>
+    电话：0431-85166495
+  </td>
+</tr>
+
+<!-- ====== T3 ====== -->
+<tr class="tier-t3" data-tier="t3" data-grade="B+" data-camp="tbd">
+  <td class="rank-num">20</td>
+  <td class="school-name">复旦大学</td>
+  <td><span class="tier-tag t3">T3</span></td>
+  <td class="location">上海 · 杨浦</td>
+  <td><span class="grade grade-bplus">B+</span></td>
+  <td class="highlight-box">综合名校声誉极强 · 计算与智能创新学院 · NLP方向</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    参考往年：7月20日截止<br>
+    8月下旬举办
+  </td>
+  <td class="camp-info">
+    <a href="https://cs.fudan.edu.cn" target="_blank">cs.fudan.edu.cn</a><br>
+    电话：021-31242169
+  </td>
+</tr>
+
+<tr class="tier-t3" data-tier="t3" data-grade="B+" data-camp="tbd">
+  <td class="rank-num">21</td>
+  <td class="school-name">中国人民大学</td>
+  <td><span class="tier-tag t3">T3</span></td>
+  <td class="location">北京 · 海淀</td>
+  <td><span class="grade grade-bplus">B+</span></td>
+  <td class="highlight-box">信息检索/数据库顶尖 · 多数学院已取消夏令营</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    信息学院保留夏令营<br>
+    参考往年：7月1日-5日报名
+  </td>
+  <td class="camp-info">
+    <a href="http://yjsfs.ruc.edu.cn/tp/zs/login/toLogin/tm" target="_blank">人大推免系统</a><br>
+    <a href="http://info.ruc.edu.cn" target="_blank">info.ruc.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t3" data-tier="t3" data-grade="B+" data-camp="tbd">
+  <td class="rank-num">22</td>
+  <td class="school-name">东南大学</td>
+  <td><span class="tier-tag t3">T3</span></td>
+  <td class="location">江苏 · 南京</td>
+  <td><span class="grade grade-bplus">B+</span></td>
+  <td class="highlight-box">移动通信国重 · ABC人工智能S级第7</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    参考往年：7月初开始报名<br>
+    部分学院(IC/自动化)也招CS方向
+  </td>
+  <td class="camp-info">
+    <a href="https://yzb.seu.edu.cn" target="_blank">yzb.seu.edu.cn</a><br>
+    <a href="https://cse.seu.edu.cn" target="_blank">cse.seu.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t3" data-tier="t3" data-grade="B+" data-camp="tbd">
+  <td class="rank-num">23</td>
+  <td class="school-name">天津大学</td>
+  <td><span class="tier-tag t3">T3</span></td>
+  <td class="location">天津 · 南开</td>
+  <td><span class="grade grade-bplus">B+</span></td>
+  <td class="highlight-box">智能与计算学部 · 老牌工科 · 机试+面试选拔</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    预推免系统：7月1日-9月10日<br>
+    分三批次审核
+  </td>
+  <td class="camp-info">
+    <a href="http://cic.tju.edu.cn" target="_blank">cic.tju.edu.cn</a><br>
+    <a href="http://yzb.tju.edu.cn" target="_blank">yzb.tju.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t3" data-tier="t3" data-grade="B+" data-camp="tbd">
+  <td class="rank-num">24</td>
+  <td class="school-name">南开大学</td>
+  <td><span class="tier-tag t3">T3</span></td>
+  <td class="location">天津 · 南开</td>
+  <td><span class="grade grade-bplus">B+</span></td>
+  <td class="highlight-box">综合名校 · CV方向有积累 · 人工智能学院</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    计算机学院/人工智能学院分别招生<br>
+    关注夏季通知
+  </td>
+  <td class="camp-info">
+    <a href="https://cc.nankai.edu.cn" target="_blank">cc.nankai.edu.cn</a><br>
+    <a href="https://ai.nankai.edu.cn" target="_blank">ai.nankai.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t3" data-tier="t3" data-grade="B+" data-camp="tbd">
+  <td class="rank-num">25</td>
+  <td class="school-name">中山大学</td>
+  <td><span class="tier-tag t3">T3</span></td>
+  <td class="location">广东 · 广州</td>
+  <td><span class="grade grade-bplus">B+</span></td>
+  <td class="highlight-box">粤港澳湾区位置优势 · AI学院 · 广州/深圳双城</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    参考往年：7月6日截止<br>
+    7月中下旬直博暑期实习
+  </td>
+  <td class="camp-info">
+    <a href="https://enroll.sysu.edu.cn" target="_blank">enroll.sysu.edu.cn</a><br>
+    <a href="https://cse.sysu.edu.cn" target="_blank">cse.sysu.edu.cn</a><br>
+    电话：020-39943150
+  </td>
+</tr>
+
+<tr class="tier-t3" data-tier="t3" data-grade="B+" data-camp="tbd">
+  <td class="rank-num">26</td>
+  <td class="school-name">华南理工大学</td>
+  <td><span class="tier-tag t3">T3</span></td>
+  <td class="location">广东 · 广州</td>
+  <td><span class="grade grade-bplus">B+</span></td>
+  <td class="highlight-box">珠三角就业极强 · AI与产业结合 · 腾讯/华为校招大户</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    预计5-6月发布通知
+  </td>
+  <td class="camp-info">
+    <a href="https://www.scut.edu.cn" target="_blank">scut.edu.cn</a><br>
+    <a href="https://yanzhao.scut.edu.cn" target="_blank">yanzhao.scut.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t3" data-tier="t3" data-grade="B+" data-camp="tbd">
+  <td class="rank-num">27</td>
+  <td class="school-name">厦门大学</td>
+  <td><span class="tier-tag t3">T3</span></td>
+  <td class="location">福建 · 厦门</td>
+  <td><span class="grade grade-bplus">B+</span></td>
+  <td class="highlight-box">分数线相对友好 · AI有特色方向 · 环境优美</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    预计5-6月发布
+  </td>
+  <td class="camp-info">
+    <a href="https://informatics.xmu.edu.cn" target="_blank">informatics.xmu.edu.cn</a><br>
+    <a href="https://zs.xmu.edu.cn" target="_blank">zs.xmu.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t3" data-tier="t3" data-grade="B+" data-camp="tbd">
+  <td class="rank-num">28</td>
+  <td class="school-name">四川大学</td>
+  <td><span class="tier-tag t3">T3</span></td>
+  <td class="location">四川 · 成都</td>
+  <td><span class="grade grade-bplus">B+</span></td>
+  <td class="highlight-box">综合名校 · 医学AI交叉 · 华西医学资源</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    预计5-6月发布
+  </td>
+  <td class="camp-info">
+    <a href="https://cs.scu.edu.cn" target="_blank">cs.scu.edu.cn</a><br>
+    <a href="https://yz.scu.edu.cn" target="_blank">yz.scu.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t3" data-tier="t3" data-grade="B+" data-camp="tbd">
+  <td class="rank-num">29</td>
+  <td class="school-name">湖南大学</td>
+  <td><span class="tier-tag t3">T3</span></td>
+  <td class="location">湖南 · 长沙</td>
+  <td><span class="grade grade-bplus">B+</span></td>
+  <td class="highlight-box">分数线友好 · 智能驾驶 · 超算中心</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    预计5-6月发布
+  </td>
+  <td class="camp-info">
+    <a href="https://csee.hnu.edu.cn" target="_blank">csee.hnu.edu.cn</a><br>
+    <a href="http://gra.hnu.edu.cn" target="_blank">gra.hnu.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t3" data-tier="t3" data-grade="B+" data-camp="tbd">
+  <td class="rank-num">30</td>
+  <td class="school-name">大连理工大学</td>
+  <td><span class="tier-tag t3">T3</span></td>
+  <td class="location">辽宁 · 大连</td>
+  <td><span class="grade grade-bplus">B+</span></td>
+  <td class="highlight-box">老牌工科 · 分数线较低 · 软件学院独立</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    预计5-6月发布
+  </td>
+  <td class="camp-info">
+    <a href="http://cs.dlut.edu.cn" target="_blank">cs.dlut.edu.cn</a><br>
+    <a href="http://gs.dlut.edu.cn" target="_blank">gs.dlut.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t3" data-tier="t3" data-grade="B+" data-camp="tbd">
+  <td class="rank-num">31</td>
+  <td class="school-name">山东大学</td>
+  <td><span class="tier-tag t3">T3</span></td>
+  <td class="location">山东 · 济南/青岛</td>
+  <td><span class="grade grade-bplus">B+</span></td>
+  <td class="highlight-box">规模大 · 青岛校区有CS方向 · 综合名校</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    预计5-6月发布
+  </td>
+  <td class="camp-info">
+    <a href="https://www.cs.sdu.edu.cn" target="_blank">cs.sdu.edu.cn</a><br>
+    <a href="https://yz.sdu.edu.cn" target="_blank">yz.sdu.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t3" data-tier="t3" data-grade="B+" data-camp="tbd">
+  <td class="rank-num">32</td>
+  <td class="school-name">重庆大学</td>
+  <td><span class="tier-tag t3">T3</span></td>
+  <td class="location">重庆 · 沙坪坝</td>
+  <td><span class="grade grade-bplus">B+</span></td>
+  <td class="highlight-box">西部IT节点 · 分数线友好 · 大数据方向</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    预计5-6月发布
+  </td>
+  <td class="camp-info">
+    <a href="http://www.cs.cqu.edu.cn" target="_blank">cs.cqu.edu.cn</a><br>
+    <a href="http://yz.cqu.edu.cn" target="_blank">yz.cqu.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t3" data-tier="t3" data-grade="B+" data-camp="tbd">
+  <td class="rank-num">33</td>
+  <td class="school-name">华东师范大学</td>
+  <td><span class="tier-tag t3">T3</span></td>
+  <td class="location">上海 · 普陀/闵行</td>
+  <td><span class="grade grade-bplus">B+</span></td>
+  <td class="highlight-box">教育AI · 数据库方向 · 上海区位优势</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    预计5-6月发布
+  </td>
+  <td class="camp-info">
+    <a href="https://cs.ecnu.edu.cn" target="_blank">cs.ecnu.edu.cn</a><br>
+    <a href="https://yjszs.ecnu.edu.cn" target="_blank">yjszs.ecnu.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t3" data-tier="t3" data-grade="B-" data-camp="tbd">
+  <td class="rank-num">34</td>
+  <td class="school-name">中国农业大学</td>
+  <td><span class="tier-tag t3">T3</span></td>
+  <td class="location">北京 · 海淀</td>
+  <td><span class="grade grade-bminus">B-</span></td>
+  <td class="highlight-box">农业AI交叉 · 智慧农业 · 北京985</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    预计5-6月发布
+  </td>
+  <td class="camp-info">
+    <a href="https://cie.cau.edu.cn" target="_blank">cie.cau.edu.cn</a><br>
+    <a href="http://yz.cau.edu.cn" target="_blank">yz.cau.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t3" data-tier="t3" data-grade="B" data-camp="tbd">
+  <td class="rank-num">35</td>
+  <td class="school-name">兰州大学</td>
+  <td><span class="tier-tag t3">T3</span></td>
+  <td class="location">甘肃 · 兰州</td>
+  <td><span class="grade grade-b">B</span></td>
+  <td class="highlight-box">985保底首选 · 分数线低 · 西北地区龙头</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span><br>
+    预计5-6月发布
+  </td>
+  <td class="camp-info">
+    <a href="http://xxxy.lzu.edu.cn" target="_blank">xxxy.lzu.edu.cn</a><br>
+    <a href="http://yz.lzu.edu.cn" target="_blank">yz.lzu.edu.cn</a>
+  </td>
+</tr>
+
+<!-- ====== T4 ====== -->
+<tr class="tier-t4" data-tier="t4" data-grade="C-" data-camp="tbd">
+  <td class="rank-num">36</td>
+  <td class="school-name">中央民族大学</td>
+  <td><span class="tier-tag t4">T4</span></td>
+  <td class="location">北京 · 海淀</td>
+  <td><span class="grade grade-cminus">C-</span></td>
+  <td class="highlight-box">985最低门槛 · CS弱 · 北京区位好</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span>
+  </td>
+  <td class="camp-info">
+    <a href="https://www.muc.edu.cn" target="_blank">muc.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t4" data-tier="t4" data-grade="C-" data-camp="tbd">
+  <td class="rank-num">37</td>
+  <td class="school-name">西北农林科技大学</td>
+  <td><span class="tier-tag t4">T4</span></td>
+  <td class="location">陕西 · 杨凌</td>
+  <td><span class="grade grade-cminus">C-</span></td>
+  <td class="highlight-box">农林特色 · CS很弱 · 位置偏远</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span>
+  </td>
+  <td class="camp-info">
+    <a href="https://www.nwafu.edu.cn" target="_blank">nwafu.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t4" data-tier="t4" data-grade="C+" data-camp="tbd">
+  <td class="rank-num">38</td>
+  <td class="school-name">中国海洋大学</td>
+  <td><span class="tier-tag t4">T4</span></td>
+  <td class="location">山东 · 青岛</td>
+  <td><span class="grade grade-cplus">C+</span></td>
+  <td class="highlight-box">青岛位置好 · CS弱 · 海洋信息方向</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span>
+  </td>
+  <td class="camp-info">
+    <a href="https://it.ouc.edu.cn" target="_blank">it.ouc.edu.cn</a>
+  </td>
+</tr>
+
+<tr class="tier-t4" data-tier="t4" data-grade="C+" data-camp="tbd">
+  <td class="rank-num">39</td>
+  <td class="school-name">北京师范大学</td>
+  <td><span class="tier-tag t4">T4</span></td>
+  <td class="location">北京 · 海淀</td>
+  <td><span class="grade grade-cplus">C+</span></td>
+  <td class="highlight-box">教育学强校 · CS边缘 · 北京985</td>
+  <td class="camp-info">
+    <span class="camp-status status-tbd">待发布</span>
+  </td>
+  <td class="camp-info">
+    <a href="https://ai.bnu.edu.cn" target="_blank">ai.bnu.edu.cn</a>
+  </td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p><strong>个人定位参考：</strong>大连海事大学(211) · GPA 3.87 · 省二/省三竞赛 · 无科研经历</p>
+  <p style="margin-top:6px;">
+    <strong>建议冲刺：</strong>T1-T2梯队（哈工大、成电、华科、中南、东北大学）
+    &nbsp;|&nbsp;
+    <strong>稳妥主申：</strong>T3梯队前段（天大、南开、厦大、湖大、大连理工）
+    &nbsp;|&nbsp;
+    <strong>保底：</strong>兰州大学、中国海洋大学
+  </p>
+  <p style="margin-top:14px; color:#999;">
+    数据来源：教育部第四轮学科评估 · CSRankings 2026 · ABC中国大学排名 · 各校官网 &nbsp;|&nbsp;
+    2026年5月整理 &nbsp;|&nbsp;
+    ⚠ 夏令营时间以各校官网最新通知为准，部分为往年参考时间
+  </p>
+</div>
+
+<script>
+function applyFilters() {
+  const tier = document.getElementById('tierFilter').value;
+  const grade = document.getElementById('gradeFilter').value;
+  const camp = document.getElementById('campFilter').value;
+  const search = document.getElementById('searchInput').value.toLowerCase();
+
+  const rows = document.querySelectorAll('tbody tr');
+  rows.forEach(row => {
+    let show = true;
+
+    if (tier !== 'all' && row.dataset.tier !== tier) show = false;
+    if (grade !== 'all' && row.dataset.grade !== grade) show = false;
+    if (camp !== 'all' && row.dataset.camp !== camp) show = false;
+    if (search && !row.textContent.toLowerCase().includes(search)) show = false;
+
+    row.style.display = show ? '' : 'none';
+  });
+}
+</script>
+
+</body>
+</html>
