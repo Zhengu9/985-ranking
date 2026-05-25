@@ -290,6 +290,42 @@
     .table-wrap { box-shadow: none; }
     thead th { background: #1a1a2e !important; color: #fff !important; -webkit-print-color-adjust: exact; }
   }
+
+  /* ===== Tab Navigation ===== */
+  .tab-nav { display: flex; justify-content: center; gap: 4px; max-width: 600px; margin: 24px auto 0; background: #e8ecf2; border-radius: 14px; padding: 4px; position: relative; z-index: 2; }
+  .tab-nav button { flex: 1; padding: 12px 24px; border: none; background: transparent; border-radius: 11px; font-size: 0.95em; font-weight: 600; cursor: pointer; color: #666; transition: all 0.25s; white-space: nowrap; }
+  .tab-nav button.active { background: #fff; color: #1a1a2e; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  .tab-nav button:hover:not(.active) { color: #333; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ===== Status Cards ===== */
+  .status-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; margin-top: 20px; }
+  .status-card { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); border-left: 4px solid #e0e0e0; transition: transform 0.15s, box-shadow 0.15s; }
+  .status-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+  .status-card.card-open { border-left-color: #22c55e; }
+  .status-card.card-soon { border-left-color: #f59e0b; }
+  .status-card.card-tbd { border-left-color: #94a3b8; }
+  .status-card.card-closed { border-left-color: #ef4444; opacity: 0.7; }
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+  .card-school { font-weight: 700; font-size: 1.05em; color: #1a1a2e; }
+  .card-tier-badge { font-size: 0.7em; padding: 2px 8px; border-radius: 10px; color: #fff; font-weight: 700; }
+  .card-deadline { font-size: 0.82em; color: #5a6a7a; margin-bottom: 6px; }
+  .card-deadline strong { color: #e94560; }
+  .progress-wrap { margin: 10px 0 8px; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 0.72em; color: #888; margin-bottom: 3px; }
+  .progress-bar { height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+  .progress-fill.urgent { background: linear-gradient(90deg, #ef4444, #f97316); }
+  .progress-fill.normal { background: linear-gradient(90deg, #f59e0b, #22c55e); }
+  .progress-fill.safe { background: linear-gradient(90deg, #22c55e, #06b6d4); }
+  .progress-fill.countdown { background: linear-gradient(90deg, #6366f1, #a855f7); }
+  .card-link { display: inline-block; margin-top: 6px; font-size: 0.8em; color: #4f46e5; text-decoration: none; font-weight: 500; }
+  .card-link:hover { text-decoration: underline; }
+  .section-title { font-size: 1.15em; font-weight: 700; color: #1a1a2e; margin: 24px 0 4px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; display: flex; align-items: center; gap: 8px; }
+  .section-count { font-size: 0.78em; font-weight: 600; color: #888; }
+  @media (max-width: 768px) { .status-grid { grid-template-columns: 1fr; } .tab-nav button { font-size: 0.82em; padding: 10px 14px; } }
+
 </style>
 </head>
 <body>
@@ -313,6 +349,15 @@
   <span class="badge badge-t3">T3 985光环</span>
   <span class="badge badge-t4">T4 末流985</span>
 </div>
+
+<!-- Tab Navigation -->
+<div class="tab-nav">
+  <button class="active" onclick="switchTab('ranking')">综合排名</button>
+  <button onclick="switchTab('status')">报名状态</button>
+</div>
+
+<!-- Tab Panel: Ranking -->
+<div class="tab-panel active" id="tab-ranking">
 
 <!-- Main Content -->
 <div class="container">
@@ -1062,7 +1107,32 @@
 </table>
 </div>
 
+
 </div>
+</div><!-- end tab-ranking -->
+
+<!-- Tab Panel: Status Overview -->
+<div class="tab-panel" id="tab-status">
+<div class="container">
+
+  <div class="section-title">
+    正在报名 <span class="section-count" id="openCount"></span>
+  </div>
+  <div class="status-grid" id="grid-open"></div>
+
+  <div class="section-title" style="border-bottom-color:#f59e0b;">
+    即将开始 <span class="section-count" id="soonCount"></span>
+  </div>
+  <div class="status-grid" id="grid-soon"></div>
+
+  <div class="section-title" style="border-bottom-color:#94a3b8;">
+    待发布 <span class="section-count" id="tbdCount"></span>
+  </div>
+  <div class="status-grid" id="grid-tbd"></div>
+
+</div>
+</div><!-- end tab-status -->
+
 
 <!-- Footer -->
 <div class="footer">
@@ -1082,6 +1152,106 @@
 </div>
 
 <script>
+// ===== School Data for Status Overview =====
+const SCHOOLS = [
+  {name:"清华大学",tier:"T0",status:"soon",deadline:"2026-07-01",deadlineTxt:"预推免预计7.1开放",url:"https://yzbm.tsinghua.edu.cn",grade:"A+"},
+  {name:"北京大学",tier:"T0",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.pku.edu.cn",grade:"A+"},
+  {name:"浙江大学",tier:"T0",status:"soon",deadline:"2026-06-25",deadlineTxt:"预计5月底发布，6月下旬截止",url:"http://www.cs.zju.edu.cn",grade:"A+"},
+  {name:"上海交通大学",tier:"T0",status:"soon",deadline:"2026-07-03",deadlineTxt:"预计6月发布",url:"https://yzb.sjtu.edu.cn",grade:"A"},
+  {name:"南京大学",tier:"T1",status:"soon",deadline:"2026-06-01",deadlineTxt:"LAMDA实验室预计6月初截止",url:"https://www.lamda.nju.edu.cn",grade:"A"},
+  {name:"哈尔滨工业大学",tier:"T1",status:"soon",deadline:"2026-06-15",deadlineTxt:"预计5-6月发布",url:"http://yzb.hit.edu.cn",grade:"A"},
+  {name:"北京航空航天大学",tier:"T1",status:"soon",deadline:"2026-06-28",deadlineTxt:"预计6月中下旬(暑期开放日)",url:"https://scse.buaa.edu.cn",grade:"A"},
+  {name:"华中科技大学",tier:"T1",status:"soon",deadline:"2026-06-20",deadlineTxt:"预计6月上旬发布",url:"http://cs.hust.edu.cn",grade:"A"},
+  {name:"电子科技大学",tier:"T1",status:"soon",deadline:"2026-07-03",deadlineTxt:"预计6月中下旬发布",url:"https://www.scse.uestc.edu.cn",grade:"A"},
+  {name:"中国科学技术大学",tier:"T1",status:"open",deadline:"2026-05-25",deadlineTxt:"科学岛夏令营5.25截止",url:"http://xly.ustc.edu.cn",grade:"A-"},
+  {name:"国防科技大学",tier:"T1",status:"soon",deadline:"2026-06-28",deadlineTxt:"预计5-6月发布",url:"https://yjszs.nudt.edu.cn",grade:"A+"},
+  {name:"西安交通大学",tier:"T2",status:"soon",deadline:"2026-06-10",deadlineTxt:"预计5月中下旬发布",url:"http://yzbm.xjtu.edu.cn",grade:"A-"},
+  {name:"西北工业大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://jsj.nwpu.edu.cn",grade:"A-"},
+  {name:"北京理工大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.bit.edu.cn",grade:"A-"},
+  {name:"武汉大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.whu.edu.cn",grade:"A-"},
+  {name:"同济大学",tier:"T2",status:"soon",deadline:"2026-06-06",deadlineTxt:"预计5-6月发布",url:"https://yzbm.tongji.edu.cn",grade:"A-"},
+  {name:"中南大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"近年以预推免替代夏令营",url:"https://cse.csu.edu.cn",grade:"A-"},
+  {name:"东北大学",tier:"T2",status:"open",deadline:"2026-05-15",deadlineTxt:"新加坡AI项目5.15截止",url:"http://www.cse.neu.edu.cn",grade:"A-"},
+  {name:"吉林大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"http://ccst.jlu.edu.cn",grade:"A-"},
+  {name:"复旦大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.fudan.edu.cn",grade:"B+"},
+  {name:"中国人民大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"http://info.ruc.edu.cn",grade:"B+"},
+  {name:"东南大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cse.seu.edu.cn",grade:"B+"},
+  {name:"天津大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"http://cic.tju.edu.cn",grade:"B+"},
+  {name:"南开大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cc.nankai.edu.cn",grade:"B+"},
+  {name:"中山大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cse.sysu.edu.cn",grade:"B+"},
+  {name:"华南理工大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://www.scut.edu.cn",grade:"B+"},
+  {name:"厦门大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://informatics.xmu.edu.cn",grade:"B+"},
+  {name:"四川大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.scu.edu.cn",grade:"B+"},
+  {name:"湖南大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://csee.hnu.edu.cn",grade:"B+"},
+  {name:"大连理工大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"http://cs.dlut.edu.cn",grade:"B+"},
+  {name:"山东大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://yz.sdu.edu.cn",grade:"B+"},
+  {name:"重庆大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"http://www.cs.cqu.edu.cn",grade:"B+"},
+  {name:"华东师范大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.ecnu.edu.cn",grade:"B+"},
+  {name:"中国农业大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cie.cau.edu.cn",grade:"B-"},
+  {name:"兰州大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"http://xxxy.lzu.edu.cn",grade:"B"},
+  {name:"中央民族大学",tier:"T4",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://www.muc.edu.cn",grade:"C-"},
+  {name:"西北农林科技大学",tier:"T4",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://www.nwafu.edu.cn",grade:"C-"},
+  {name:"中国海洋大学",tier:"T4",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://it.ouc.edu.cn",grade:"C+"},
+  {name:"北京师范大学",tier:"T4",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://ai.bnu.edu.cn",grade:"C+"}
+];
+
+// ===== Tab Switching =====
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+  if (name === 'status') renderStatus();
+}
+
+// ===== Progress Bar =====
+function calcProgress(deadlineStr) {
+  if (!deadlineStr) return {pct:0, cls:'', label:''};
+  var dl = new Date(deadlineStr);
+  var now = new Date();
+  var total = dl - new Date('2026-04-01');
+  var remain = dl - now;
+  var pct = Math.max(0, Math.min(100, Math.round((1 - remain/total) * 100)));
+  var cls = remain < 3*86400000 ? 'urgent' : remain < 14*86400000 ? 'normal' : 'safe';
+  var days = Math.ceil(remain/86400000);
+  var label = days > 0 ? '剩余 ' + days + ' 天' : days === 0 ? '今天截止' : '已截止';
+  return {pct:pct, cls:cls, label:label};
+}
+
+// ===== Render Status Cards =====
+function renderStatus() {
+  var cat = {open:[], soon:[], tbd:[]};
+  SCHOOLS.forEach(function(s) {
+    cat[s.status] = cat[s.status] || [];
+    cat[s.status].push(s);
+  });
+
+  var tierColors = {T0:'#1a1a2e',T1:'#e94560',T2:'#f0a040',T3:'#4f8cff',T4:'#999'};
+
+  ['open','soon','tbd'].forEach(function(st) {
+    document.getElementById('grid-' + st).innerHTML = cat[st].map(function(s) {
+      var prog = calcProgress(s.deadline);
+      var cls = st === 'open' ? 'card-open' : st === 'soon' ? 'card-soon' : 'card-tbd';
+      return '<div class=\"status-card ' + cls + '\">' +
+        '<div class=\"card-header\">' +
+          '<span class=\"card-school\">' + s.name + ' <span style=\"font-size:0.75em;color:#888;\">' + s.grade + '</span></span>' +
+          '<span class=\"card-tier-badge\" style=\"background:' + tierColors[s.tier] + '\">' + s.tier + '</span>' +
+        '</div>' +
+        '<div class=\"card-deadline\">' + s.deadlineTxt + '</div>' +
+        (s.deadline ? '<div class=\"progress-wrap\">' +
+          '<div class=\"progress-label\"><span></span><span>' + prog.label + '</span></div>' +
+          '<div class=\"progress-bar\"><div class=\"progress-fill ' + prog.cls + '\" style=\"width:' + prog.pct + '%\"></div></div>' +
+        '</div>' : '') +
+        '<a class=\"card-link\" href=\"' + s.url + '\" target=\"_blank\">&#x1f517; ' + s.url.replace('https://','') + '</a>' +
+      '</div>';
+    }).join('');
+
+    var el = document.getElementById(st + 'Count');
+    if (el) el.textContent = '(' + cat[st].length + '所)';
+  });
+}
+
+// ===== Table Filters =====
 function applyFilters() {
   const tier = document.getElementById('tierFilter').value;
   const grade = document.getElementById('gradeFilter').value;
@@ -1091,12 +1261,10 @@ function applyFilters() {
   const rows = document.querySelectorAll('tbody tr');
   rows.forEach(row => {
     let show = true;
-
     if (tier !== 'all' && row.dataset.tier !== tier) show = false;
     if (grade !== 'all' && row.dataset.grade !== grade) show = false;
     if (camp !== 'all' && row.dataset.camp !== camp) show = false;
     if (search && !row.textContent.toLowerCase().includes(search)) show = false;
-
     row.style.display = show ? '' : 'none';
   });
 }
