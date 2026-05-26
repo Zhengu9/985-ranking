@@ -336,7 +336,7 @@
   <div class="subtitle">评估维度：学科评估 + CSRankings科研产出 + 行业认可度 + 综合声誉 + 考研难度</div>
   <div class="user-info">
     <span>目标方向：AI / 人工智能 / 软件</span>
-    <span>数据截止：2026年5月22日 · 每日自动更新</span>
+    <span>数据截止：2026年5月26日 · 每日自动更新</span>
     <span>夏令营年份：2026年暑期（面向2027届）</span>
   </div>
 </div>
@@ -577,7 +577,7 @@
   </td>
 </tr>
 
-<tr class="tier-t1" data-tier="t1" data-grade="A-" data-camp="open">
+<tr class="tier-t1" data-tier="t1" data-grade="A-" data-camp="soon">
   <td class="rank-num">10</td>
   <td class="school-name">中国科学技术大学</td>
   <td><span class="tier-tag t1">T1</span></td>
@@ -585,8 +585,8 @@
   <td><span class="grade grade-aminus">A-</span></td>
   <td class="highlight-box">ABC本科AI排名S级第1 · 数理底蕴深厚 · 全球AI前10</td>
   <td class="camp-info">
-    <span class="camp-status status-open">科学岛夏令营报名中</span><br>
-    科学岛夏令营截止：<strong>2026年5月25日</strong><br>
+    <span class="camp-status status-soon">预计6月发布</span><br>
+    科学岛夏令营已截止(5.25)<br>
     计算机科学营预计6月中下旬发布
   </td>
   <td class="camp-info">
@@ -725,7 +725,7 @@
   </td>
 </tr>
 
-<tr class="tier-t2" data-tier="t2" data-grade="A-" data-camp="open">
+<tr class="tier-t2" data-tier="t2" data-grade="A-" data-camp="soon">
   <td class="rank-num">18</td>
   <td class="school-name">东北大学</td>
   <td><span class="tier-tag t2">T2</span></td>
@@ -733,8 +733,8 @@
   <td><span class="grade grade-aminus">A-</span></td>
   <td class="highlight-box">自动化底子厚 · 老牌工科 · 分数友好 · 性价比高</td>
   <td class="camp-info">
-    <span class="camp-status status-open">"知行海外"项目报名中</span><br>
-    新加坡AI菁英项目<strong>5月15日截止</strong><br>
+    <span class="camp-status status-soon">预计6月发布</span><br>
+    新加坡项目已截止(5.15)<br>
     导师团招生报名中(发邮件)
   </td>
   <td class="camp-info">
@@ -1155,7 +1155,7 @@
 // ===== School Data for Status Overview =====
 const SCHOOLS = [
   {name:"清华大学",tier:"T0",status:"soon",deadline:"2026-07-01",deadlineTxt:"预推免预计7.1开放",url:"https://yzbm.tsinghua.edu.cn",grade:"A+"},
-  {name:"北京大学",tier:"T0",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.pku.edu.cn",grade:"A+"},
+  {name:"北京大学",tier:"T0",status:"soon",deadline:"2026-06-14",deadlineTxt:"前沿交叉院夏令营 6.1-6.14报名(大数据/ML)",url:"https://cs.pku.edu.cn",grade:"A+"},
   {name:"浙江大学",tier:"T0",status:"soon",deadline:"2026-06-25",deadlineTxt:"预计5月底发布，6月下旬截止",url:"http://www.cs.zju.edu.cn",grade:"A+"},
   {name:"上海交通大学",tier:"T0",status:"soon",deadline:"2026-07-03",deadlineTxt:"预计6月发布",url:"https://yzb.sjtu.edu.cn",grade:"A"},
   {name:"南京大学",tier:"T1",status:"soon",deadline:"2026-06-01",deadlineTxt:"LAMDA实验室预计6月初截止",url:"https://www.lamda.nju.edu.cn",grade:"A"},
@@ -1163,7 +1163,7 @@ const SCHOOLS = [
   {name:"北京航空航天大学",tier:"T1",status:"soon",deadline:"2026-06-28",deadlineTxt:"预计6月中下旬(暑期开放日)",url:"https://scse.buaa.edu.cn",grade:"A"},
   {name:"华中科技大学",tier:"T1",status:"soon",deadline:"2026-06-20",deadlineTxt:"预计6月上旬发布",url:"http://cs.hust.edu.cn",grade:"A"},
   {name:"电子科技大学",tier:"T1",status:"soon",deadline:"2026-07-03",deadlineTxt:"预计6月中下旬发布",url:"https://www.scse.uestc.edu.cn",grade:"A"},
-  {name:"中国科学技术大学",tier:"T1",status:"open",deadline:"2026-05-25",deadlineTxt:"科学岛夏令营5.25截止",url:"http://xly.ustc.edu.cn",grade:"A-"},
+  {name:"中国科学技术大学",tier:"T1",status:"soon",deadline:"2026-06-20",deadlineTxt:"科学岛已截止(5.25)，CS营预计6月发布",url:"http://xly.ustc.edu.cn",grade:"A-"},
   {name:"国防科技大学",tier:"T1",status:"soon",deadline:"2026-06-28",deadlineTxt:"预计5-6月发布",url:"https://yjszs.nudt.edu.cn",grade:"A+"},
   {name:"西安交通大学",tier:"T2",status:"soon",deadline:"2026-06-10",deadlineTxt:"预计5月中下旬发布",url:"http://yzbm.xjtu.edu.cn",grade:"A-"},
   {name:"西北工业大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://jsj.nwpu.edu.cn",grade:"A-"},
@@ -1171,7 +1171,7 @@ const SCHOOLS = [
   {name:"武汉大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.whu.edu.cn",grade:"A-"},
   {name:"同济大学",tier:"T2",status:"soon",deadline:"2026-06-06",deadlineTxt:"预计5-6月发布",url:"https://yzbm.tongji.edu.cn",grade:"A-"},
   {name:"中南大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"近年以预推免替代夏令营",url:"https://cse.csu.edu.cn",grade:"A-"},
-  {name:"东北大学",tier:"T2",status:"open",deadline:"2026-05-15",deadlineTxt:"新加坡AI项目5.15截止",url:"http://www.cse.neu.edu.cn",grade:"A-"},
+  {name:"东北大学",tier:"T2",status:"soon",deadline:"2026-06-20",deadlineTxt:"新加坡项目已截止，CS夏令营预计6月发布",url:"http://www.cse.neu.edu.cn",grade:"A-"},
   {name:"吉林大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"http://ccst.jlu.edu.cn",grade:"A-"},
   {name:"复旦大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.fudan.edu.cn",grade:"B+"},
   {name:"中国人民大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"http://info.ruc.edu.cn",grade:"B+"},
@@ -1192,7 +1192,7 @@ const SCHOOLS = [
   {name:"中央民族大学",tier:"T4",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://xingong.muc.edu.cn",grade:"C-"},
   {name:"西北农林科技大学",tier:"T4",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cie.nwsuaf.edu.cn/",grade:"C-"},
   {name:"中国海洋大学",tier:"T4",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://it.ouc.edu.cn",grade:"C+"},
-  {name:"北京师范大学",tier:"T4",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://ai.bnu.edu.cn",grade:"C+"}
+  {name:"北京师范大学",tier:"T4",status:"open",deadline:"2026-06-22",deadlineTxt:"AI学院大模型训练营 6.22截止",url:"https://ai.bnu.edu.cn",grade:"C+"}
 ];
 
 // ===== Tab Switching =====
