@@ -336,7 +336,7 @@
   <div class="subtitle">评估维度：学科评估 + CSRankings科研产出 + 行业认可度 + 综合声誉 + 考研难度</div>
   <div class="user-info">
     <span>目标方向：AI / 人工智能 / 软件</span>
-    <span>数据截止：2026年6月25日 · 每日自动更新</span>
+    <span>数据截止：2026年7月3日 · 每日自动更新</span>
     <span>夏令营年份：2026年暑期（面向2027届）</span>
   </div>
 </div>
@@ -1155,45 +1155,45 @@
 <script>
 // ===== School Data for Status Overview =====
 const SCHOOLS = [
-  {name:"清华大学",tier:"T0",status:"closed",deadline:"2026-07-01",deadlineTxt:"CS系无夏令营直接预推免",url:"https://yzbm.tsinghua.edu.cn",grade:"A+",prePush:"预推免7-8月 系统yzbm.tsinghua.edu.cn"},
-  {name:"北京大学",tier:"T0",status:"closed",deadline:"2026-06-15",deadlineTxt:"夏令营已截止(6.15) CS院400人",url:"https://cs.pku.edu.cn/info/1022/5820.htm",grade:"A+",prePush:"预推免9月 admission.pku.edu.cn/xly/"},
-  {name:"浙江大学",tier:"T0",status:"soon",deadline:"2026-06-25",deadlineTxt:"CS院今日截止(6.25)! 直博导向",url:"http://www.cs.zju.edu.cn/csen/2026/0527/c27011a3167062/page.htm",grade:"A+",prePush:"预推免7.29-9.10 yjsy.zju.edu.cn"},
-  {name:"上海交通大学",tier:"T0",status:"open",deadline:"2026-07-03",deadlineTxt:"CS院7.3截止 AI学院7.4截止",url:"https://www.gs.sjtu.edu.cn/post/detail/Z3MzMjIx",grade:"A",prePush:"预推免9月 ga.sjtu.edu.cn/zsgl/xlygl/"},
-  {name:"南京大学",tier:"T1",status:"tbd",deadline:"",deadlineTxt:"2026夏令营暂未发布",url:"https://cs.nju.edu.cn",grade:"A",prePush:"预推免约8月 gs.nju.edu.cn"},
-  {name:"哈尔滨工业大学",tier:"T1",status:"closed",deadline:"2026-06-22",deadlineTxt:"夏令营已截止(6.22) 计算学部",url:"http://www.cs.hit.edu.cn/2026/0605/c11271a393612/page.htm",grade:"A",prePush:"预推免即日-8.20 yzb.hit.edu.cn"},
-  {name:"北京航空航天大学",tier:"T1",status:"tbd",deadline:"",deadlineTxt:"2026夏令营暂未发布(暑期开放日)",url:"https://scse.buaa.edu.cn",grade:"A",prePush:"预推免约9月 yzb.buaa.edu.cn"},
-  {name:"华中科技大学",tier:"T1",status:"tbd",deadline:"",deadlineTxt:"2026夏令营暂未发布",url:"http://cs.hust.edu.cn/zsxx.htm",grade:"A",prePush:"预推免9月 yanzhao.hust.edu.cn"},
-  {name:"电子科技大学",tier:"T1",status:"closed",deadline:"2026-06-22",deadlineTxt:"夏令营已截止(6.22) 深源英才营",url:"https://yz.uestc.edu.cn/info/1064/5526.htm",grade:"A",prePush:"预推免约9月 yzbm.uestc.edu.cn"},
-  {name:"中国科学技术大学",tier:"T1",status:"closed",deadline:"2026-06-20",deadlineTxt:"夏令营已截止(6.20) 7.15-19线下",url:"http://cs.ustc.edu.cn/2026/0519/c22510a741173/page.htm",grade:"A-",prePush:"预推免约9月 yz.ustc.edu.cn"},
-  {name:"国防科技大学",tier:"T1",status:"tbd",deadline:"",deadlineTxt:"2026夏令营暂未发布(需政审)",url:"https://yjszs.nudt.edu.cn",grade:"A+",prePush:"预推免约9月 yjszs.nudt.edu.cn"},
-  {name:"西安交通大学",tier:"T2",status:"closed",deadline:"2026-06-15",deadlineTxt:"夏令营已截止(6.15) CS/软件/网安",url:"http://www.cs.xjtu.edu.cn/xwgg/tzgg.htm",grade:"A-",prePush:"预推免约9月 yzbm.xjtu.edu.cn"},
-  {name:"西北工业大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"2026夏令营暂未发布",url:"https://jsj.nwpu.edu.cn",grade:"A-",prePush:"预推免约9月 yzb.nwpu.edu.cn"},
-  {name:"北京理工大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.bit.edu.cn",grade:"A-",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"武汉大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.whu.edu.cn",grade:"A-",prePush:"预推免9.6-9.10 cs.whu.edu.cn"},
-  {name:"同济大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"2026夏令营暂未发布",url:"https://yzbm.tongji.edu.cn",grade:"A-",prePush:"预推免约9月 yzbm.tongji.edu.cn"},
-  {name:"中南大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"近年以预推免替代夏令营",url:"https://cse.csu.edu.cn",grade:"A-",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"东北大学",tier:"T2",status:"tbd",deadline:"2026-06-20",deadlineTxt:"2026夏令营暂未发布",url:"http://www.cse.neu.edu.cn",grade:"A-",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"吉林大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"2026夏令营暂未发布",url:"http://ccst.jlu.edu.cn",grade:"A-",prePush:"预推免约9月 yzb.jlu.edu.cn"},
-  {name:"复旦大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.fudan.edu.cn",grade:"B+",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"中国人民大学",tier:"T3",status:"open",deadline:"2026-07-12",deadlineTxt:"信息学院+高瓴AI学院已发布 可免机考(CSP)",url:"http://info.ruc.edu.cn",grade:"B+",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"东南大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cse.seu.edu.cn",grade:"B+",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"天津大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"http://cic.tju.edu.cn",grade:"B+",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"南开大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cc.nankai.edu.cn",grade:"B+",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"中山大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cse.sysu.edu.cn",grade:"B+",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"华南理工大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://www2.scut.edu.cn/cs/",grade:"B+",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"厦门大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://informatics.xmu.edu.cn/zsxx/37.htm",grade:"B+",prePush:"预推免8.18-9.7 ssyjsbm.xmu.edu.cn"},
-  {name:"四川大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.scu.edu.cn",grade:"B+",prePush:"预推免9.2-9.10 cs.scu.edu.cn"},
-  {name:"湖南大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://csee.hnu.edu.cn",grade:"B+",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"大连理工大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"http://cs.dlut.edu.cn",grade:"B+",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"山东大学",tier:"T3",status:"closed",deadline:"2026-06-23",deadlineTxt:"夏令营已截止(6.23) 软件学院",url:"https://www.sc.sdu.edu.cn/info/1019/6003.htm",grade:"B+",prePush:"预推免约9月 yz.sdu.edu.cn"},
-  {name:"重庆大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"http://www.cs.cqu.edu.cn",grade:"B+",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"华东师范大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.ecnu.edu.cn/b6/40/c19867a767552/page.htm",grade:"B+",prePush:"预推免约9月 yjszs.ecnu.edu.cn"},
-  {name:"中国农业大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cie.cau.edu.cn",grade:"B-",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"兰州大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"http://xxxy.lzu.edu.cn",grade:"B",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"中央民族大学",tier:"T4",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://xingong.muc.edu.cn",grade:"C-",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"西北农林科技大学",tier:"T4",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cie.nwsuaf.edu.cn/",grade:"C-",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"中国海洋大学",tier:"T4",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://it.ouc.edu.cn",grade:"C+",prePush:"预推免约9月 教育部系统yz.chsi.com.cn"},
-  {name:"北京师范大学",tier:"T4",status:"closed",deadline:"2026-06-22",deadlineTxt:"夏令营已截止(6.22) AI大模型营",url:"https://ai.bnu.edu.cn/ggjxz/tzgg/ada97c6b63724b75b67be35d57b06cc0.htm",grade:"C+",prePush:"预推免约9月 xly.bnu.edu.cn"}
+  {name:"清华大学",tier:"T0",status:"closed",deadline:"2026-07-01",deadlineTxt:"CS系无夏令营直接预推免",url:"https://yzbm.tsinghua.edu.cn",grade:"A+",prePushUrl:"https://yzbm.tsinghua.edu.cn",prePush:"预推免6.18-7.15 yzbm.tsinghua.edu.cn"},
+  {name:"北京大学",tier:"T0",status:"closed",deadline:"2026-06-15",deadlineTxt:"夏令营已截止(6.15) CS院400人",url:"https://cs.pku.edu.cn/info/1022/5820.htm",grade:"A+",prePushUrl:"https://admission.pku.edu.cn/xly/index.htm",prePush:"预推免9月 admission.pku.edu.cn"},
+  {name:"浙江大学",tier:"T0",status:"soon",deadline:"2026-06-25",deadlineTxt:"CS院今日截止(6.25)! 直博导向",url:"http://www.cs.zju.edu.cn/csen/2026/0527/c27011a3167062/page.htm",grade:"A+",prePushUrl:"https://yjsy.zju.edu.cn/grsinfo/zs/user/login",prePush:"预推免7.29-9.10 yjsy.zju.edu.cn"},
+  {name:"上海交通大学",tier:"T0",status:"open",deadline:"2026-07-03",deadlineTxt:"CS院7.3截止 AI学院7.4截止",url:"https://www.gs.sjtu.edu.cn/post/detail/Z3MzMjIx",grade:"A",prePushUrl:"https://ga.sjtu.edu.cn/zsgl/xlygl/default.aspx",prePush:"预推免9月 ga.sjtu.edu.cn/zsgl/xlygl/"},
+  {name:"南京大学",tier:"T1",status:"tbd",deadline:"",deadlineTxt:"2026夏令营暂未发布",url:"https://cs.nju.edu.cn",grade:"A",prePushUrl:"https://gs.nju.edu.cn",prePush:"预推免约8月 gs.nju.edu.cn"},
+  {name:"哈尔滨工业大学",tier:"T1",status:"closed",deadline:"2026-06-22",deadlineTxt:"夏令营已截止(6.22) 计算学部",url:"http://www.cs.hit.edu.cn/2026/0605/c11271a393612/page.htm",grade:"A",prePushUrl:"http://yzb.hit.edu.cn",prePush:"预推免即日-8.20 yzb.hit.edu.cn"},
+  {name:"北京航空航天大学",tier:"T1",status:"tbd",deadline:"",deadlineTxt:"2026夏令营暂未发布(暑期开放日)",url:"https://scse.buaa.edu.cn",grade:"A",prePushUrl:"https://scse.buaa.edu.cn",prePush:"预推免9月 WPS表单报名 scse.buaa.edu.cn"},
+  {name:"华中科技大学",tier:"T1",status:"tbd",deadline:"",deadlineTxt:"2026夏令营暂未发布",url:"http://cs.hust.edu.cn/zsxx.htm",grade:"A",prePushUrl:"https://cs.hust.edu.cn/info/1439/5264.htm",prePush:"预推免9月 cs.hust.edu.cn 机试+面试"},
+  {name:"电子科技大学",tier:"T1",status:"closed",deadline:"2026-06-22",deadlineTxt:"夏令营已截止(6.22) 深源英才营",url:"https://yz.uestc.edu.cn/info/1064/5526.htm",grade:"A",prePushUrl:"https://yzbm.uestc.edu.cn/logon",prePush:"预推免9月 yzbm.uestc.edu.cn 导师推荐信"},
+  {name:"中国科学技术大学",tier:"T1",status:"closed",deadline:"2026-06-20",deadlineTxt:"夏令营已截止(6.20) 7.15-19线下",url:"http://cs.ustc.edu.cn/2026/0519/c22510a741173/page.htm",grade:"A-",prePushUrl:"https://yz.ustc.edu.cn",prePush:"预推免约9月 yz.ustc.edu.cn"},
+  {name:"国防科技大学",tier:"T1",status:"tbd",deadline:"",deadlineTxt:"2026夏令营暂未发布(需政审)",url:"https://yjszs.nudt.edu.cn",grade:"A+",prePushUrl:"https://yjszs.nudt.edu.cn",prePush:"预推免约9月 需政审 yjszs.nudt.edu.cn"},
+  {name:"西安交通大学",tier:"T2",status:"closed",deadline:"2026-06-15",deadlineTxt:"夏令营已截止(6.15) CS/软件/网安",url:"http://www.cs.xjtu.edu.cn/xwgg/tzgg.htm",grade:"A-",prePushUrl:"http://yzbm.xjtu.edu.cn",prePush:"预推免9.5-9.15 yzbm.xjtu.edu.cn"},
+  {name:"西北工业大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"2026夏令营暂未发布",url:"https://jsj.nwpu.edu.cn",grade:"A-",prePushUrl:"https://yjszs.nwpu.edu.cn",prePush:"预推免9.3-9.20 yjszs.nwpu.edu.cn"},
+  {name:"北京理工大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.bit.edu.cn",grade:"A-",prePushUrl:"https://yz.bit.edu.cn",prePush:"预推免9月 yz.bit.edu.cn 问卷星报名"},
+  {name:"武汉大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.whu.edu.cn",grade:"A-",prePushUrl:"https://cs.whu.edu.cn/info/1055/56011.htm",prePush:"预推免9.6-9.10 cs.whu.edu.cn"},
+  {name:"同济大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"2026夏令营暂未发布",url:"https://yzbm.tongji.edu.cn",grade:"A-",prePushUrl:"https://yzbm.tongji.edu.cn",prePush:"预推免8.30-9.19 yzbm.tongji.edu.cn"},
+  {name:"中南大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"近年以预推免替代夏令营",url:"https://cse.csu.edu.cn",grade:"A-",prePushUrl:"https://yjszsgl.csu.edu.cn/zsgl2026/tmsgl/default.aspx",prePush:"预推免8月起 系统常年开放 csu.edu.cn"},
+  {name:"东北大学",tier:"T2",status:"tbd",deadline:"2026-06-20",deadlineTxt:"2026夏令营暂未发布",url:"http://www.cse.neu.edu.cn",grade:"A-",prePushUrl:"http://yz.neu.edu.cn",prePush:"预推免8.27起 yz.neu.edu.cn"},
+  {name:"吉林大学",tier:"T2",status:"tbd",deadline:"",deadlineTxt:"2026夏令营暂未发布",url:"http://ccst.jlu.edu.cn",grade:"A-",prePushUrl:"https://ccst.jlu.edu.cn/info/1229/20578.htm",prePush:"预推免9月 机试+面试 ccst.jlu.edu.cn"},
+  {name:"复旦大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.fudan.edu.cn",grade:"B+",prePushUrl:"https://gsas.fudan.edu.cn",prePush:"预推免约9月 gsas.fudan.edu.cn"},
+  {name:"中国人民大学",tier:"T3",status:"open",deadline:"2026-07-12",deadlineTxt:"信息学院+高瓴AI学院已发布 可免机考(CSP)",url:"http://info.ruc.edu.cn",grade:"B+",prePushUrl:"http://yjsfs.ruc.edu.cn/tp/zs/login/toLogin/tm",prePush:"预推免7月 信息学院+高瓴AI yjsfs.ruc.edu.cn"},
+  {name:"东南大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cse.seu.edu.cn",grade:"B+",prePushUrl:"https://yzb.seu.edu.cn",prePush:"预推免约9月 yzb.seu.edu.cn"},
+  {name:"天津大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"http://cic.tju.edu.cn",grade:"B+",prePushUrl:"http://yzb.tju.edu.cn",prePush:"预推免约9月 yzb.tju.edu.cn"},
+  {name:"南开大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cc.nankai.edu.cn",grade:"B+",prePushUrl:"https://yzxt.nankai.edu.cn",prePush:"预推免约8-9月 yzxt.nankai.edu.cn"},
+  {name:"中山大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cse.sysu.edu.cn",grade:"B+",prePushUrl:"https://cse.sysu.edu.cn",prePush:"预推免约9月 cse.sysu.edu.cn"},
+  {name:"华南理工大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://www2.scut.edu.cn/cs/",grade:"B+",prePushUrl:"https://yanzhao.scut.edu.cn",prePush:"预推免约9月 yanzhao.scut.edu.cn"},
+  {name:"厦门大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://informatics.xmu.edu.cn/zsxx/37.htm",grade:"B+",prePushUrl:"https://ssyjsbm.xmu.edu.cn",prePush:"预推免8.18-9.7 ssyjsbm.xmu.edu.cn"},
+  {name:"四川大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.scu.edu.cn",grade:"B+",prePushUrl:"https://cs.scu.edu.cn/info/1247/19383.htm",prePush:"预推免9.2-9.10 cs.scu.edu.cn"},
+  {name:"湖南大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://csee.hnu.edu.cn",grade:"B+",prePushUrl:"http://gra.hnu.edu.cn",prePush:"预推免约9月 gra.hnu.edu.cn"},
+  {name:"大连理工大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"http://cs.dlut.edu.cn",grade:"B+",prePushUrl:"http://gs.dlut.edu.cn",prePush:"预推免约9月 gs.dlut.edu.cn"},
+  {name:"山东大学",tier:"T3",status:"closed",deadline:"2026-06-23",deadlineTxt:"夏令营已截止(6.23) 软件学院",url:"https://www.sc.sdu.edu.cn/info/1019/6003.htm",grade:"B+",prePushUrl:"https://yz.sdu.edu.cn",prePush:"预推免约9月 yz.sdu.edu.cn"},
+  {name:"重庆大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"http://www.cs.cqu.edu.cn",grade:"B+",prePushUrl:"http://yz.cqu.edu.cn",prePush:"预推免约9月 yz.cqu.edu.cn"},
+  {name:"华东师范大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cs.ecnu.edu.cn/b6/40/c19867a767552/page.htm",grade:"B+",prePushUrl:"https://yjszs-ks.ecnu.edu.cn/logon?zsxm=4",prePush:"预推免约9月 yjszs.ecnu.edu.cn"},
+  {name:"中国农业大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cie.cau.edu.cn",grade:"B-",prePushUrl:"http://yz.cau.edu.cn",prePush:"预推免约9月 yz.cau.edu.cn"},
+  {name:"兰州大学",tier:"T3",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"http://xxxy.lzu.edu.cn",grade:"B",prePushUrl:"http://yz.lzu.edu.cn",prePush:"预推免约9月 yz.lzu.edu.cn"},
+  {name:"中央民族大学",tier:"T4",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://xingong.muc.edu.cn",grade:"C-",prePushUrl:"https://xingong.muc.edu.cn",prePush:"预推免约9月 xingong.muc.edu.cn"},
+  {name:"西北农林科技大学",tier:"T4",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://cie.nwsuaf.edu.cn/",grade:"C-",prePushUrl:"https://cie.nwsuaf.edu.cn",prePush:"预推免约9月 cie.nwsuaf.edu.cn"},
+  {name:"中国海洋大学",tier:"T4",status:"tbd",deadline:"",deadlineTxt:"待发布",url:"https://it.ouc.edu.cn",grade:"C+",prePushUrl:"http://grad.ouc.edu.cn",prePush:"预推免约9月 grad.ouc.edu.cn"},
+  {name:"北京师范大学",tier:"T4",status:"closed",deadline:"2026-06-22",deadlineTxt:"夏令营已截止(6.22) AI大模型营",url:"https://ai.bnu.edu.cn/ggjxz/tzgg/ada97c6b63724b75b67be35d57b06cc0.htm",grade:"C+",prePushUrl:"https://xly.bnu.edu.cn/xly",prePush:"预推免约9月 xly.bnu.edu.cn"}
 ];
 
 // ===== Tab Switching =====
@@ -1239,7 +1239,8 @@ function renderStatus() {
           '<span class=\"card-school\">' + s.name + ' <span style=\"font-size:0.75em;color:#888;\">' + s.grade + '</span></span>' +
           '<span class=\"card-tier-badge\" style=\"background:' + tierColors[s.tier] + '\">' + s.tier + '</span>' +
         '</div>' +
-        '<div class=\"card-deadline\">' + s.deadlineTxt + '</div>' +
+        '<div class=\"card-deadline\">&#x1f3d5; 夏令营: ' + s.deadlineTxt + '</div>' +
+        '<div class=\"card-deadline\" style=\"color:#6366f1;\">&#x1f4cb; 预推免: ' + (s.prePush || '待发布') + '</div>' +
         (s.deadline ? '<div class=\"progress-wrap\">' +
           '<div class=\"progress-label\"><span></span><span>' + prog.label + '</span></div>' +
           '<div class=\"progress-bar\"><div class=\"progress-fill ' + prog.cls + '\" style=\"width:' + prog.pct + '%\"></div></div>' +
