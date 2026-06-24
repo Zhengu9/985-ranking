@@ -353,7 +353,8 @@
 <!-- Tab Navigation -->
 <div class="tab-nav">
   <button class="active" onclick="switchTab('ranking')">综合排名</button>
-  <button onclick="switchTab('status')">报名状态</button>
+  <button onclick="switchTab('status')">夏令营状态</button>
+  <button onclick="switchTab('prepush')">预推免信息</button>
 </div>
 
 <!-- Tab Panel: Ranking -->
@@ -1134,6 +1135,21 @@
 </div>
 </div><!-- end tab-status -->
 
+<!-- Tab Panel: PrePush -->
+<div class="tab-panel" id="tab-prepush">
+<div class="container">
+
+  <div class="section-title">
+    &#x1f4cb; 预推免报名信息 <span class="section-count" id="prepushCount"></span>
+  </div>
+  <p style="font-size:0.82em;color:#888;margin-bottom:16px;">预推免（预报名）是夏令营之后、国家推免系统开放前的第二轮招生，通常在8-9月进行。点击卡片跳转官方通知。</p>
+  <div class="status-grid" id="grid-prepush"></div>
+
+</div>
+</div><!-- end tab-prepush -->
+
+
+
 
 <!-- Footer -->
 <div class="footer">
@@ -1203,6 +1219,7 @@ function switchTab(name) {
   document.getElementById('tab-' + name).classList.add('active');
   event.target.classList.add('active');
   if (name === 'status') renderStatus();
+  if (name === 'prepush') renderPrepush();
 }
 
 // ===== Progress Bar =====
@@ -1240,7 +1257,6 @@ function renderStatus() {
           '<span class=\"card-tier-badge\" style=\"background:' + tierColors[s.tier] + '\">' + s.tier + '</span>' +
         '</div>' +
         '<div class=\"card-deadline\">&#x1f3d5; 夏令营: ' + s.deadlineTxt + '</div>' +
-        '<div class=\"card-deadline\" style=\"color:#6366f1;\">&#x1f4cb; 预推免: ' + (s.prePush || '待发布') + '</div>' +
         (s.deadline ? '<div class=\"progress-wrap\">' +
           '<div class=\"progress-label\"><span></span><span>' + prog.label + '</span></div>' +
           '<div class=\"progress-bar\"><div class=\"progress-fill ' + prog.cls + '\" style=\"width:' + prog.pct + '%\"></div></div>' +
@@ -1252,6 +1268,32 @@ function renderStatus() {
     var el = document.getElementById(st + 'Count');
     if (el) el.textContent = '(' + cat[st].length + '所)';
   });
+}
+
+
+// ===== Render PrePush Cards =====
+function renderPrepush() {
+  var tierColors = {T0:'#1a1a2e',T1:'#e94560',T2:'#f0a040',T3:'#4f8cff',T4:'#999'};
+  var sorted = SCHOOLS.slice().sort(function(a,b) {
+    var order = {T0:0,T1:1,T2:2,T3:3,T4:4};
+    return (order[a.tier]||9) - (order[b.tier]||9);
+  });
+  document.getElementById('grid-prepush').innerHTML = sorted.map(function(s) {
+    var pushUrl = s.prePushUrl || s.url;
+    var pushInfo = s.prePush || '待发布（约9月 教育部系统yz.chsi.com.cn）';
+    var hasNotice = s.prePush && s.prePush.indexOf('待发布') === -1 && s.prePush.indexOf('约') === -1;
+    var cls = hasNotice ? 'card-open' : 'card-tbd';
+    return '<a href="' + pushUrl + '" target="_blank" style="text-decoration:none;color:inherit;">' +
+      '<div class="status-card ' + cls + '">' +
+        '<div class="card-header">' +
+          '<span class="card-school">' + s.name + ' <span style="font-size:0.75em;color:#888;">' + s.grade + '</span></span>' +
+          '<span class="card-tier-badge" style="background:' + tierColors[s.tier] + '">' + s.tier + '</span>' +
+        '</div>' +
+        '<div class="card-deadline">&#x1f4c5; ' + pushInfo + '</div>' +
+        '<span class="card-link">&#x1f517; 点击查看预推免官方通知</span>' +
+      '</div></a>';
+  }).join('');
+  document.getElementById('prepushCount').textContent = '(' + SCHOOLS.length + '所)';
 }
 
 // ===== Table Filters =====
