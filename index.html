@@ -1,760 +1,141 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>985计算机/AI夏令营与预推免行动看板</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>计算机/AI 夏令营与预推免行动看板</title>
 <style>
-:root {
-  --bg: #f5f7fb;
-  --panel: #ffffff;
-  --ink: #162033;
-  --muted: #667085;
-  --line: #e4e7ec;
-  --blue: #2563eb;
-  --green: #159a6a;
-  --orange: #d97706;
-  --red: #dc2626;
-  --slate: #475467;
-  --soft-blue: #eff6ff;
-  --soft-green: #ecfdf3;
-  --soft-orange: #fffaeb;
-  --soft-red: #fef3f2;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-}
-a { color: inherit; }
-.hero {
-  background: #111827;
-  color: #fff;
-  padding: 30px 20px 24px;
-  border-bottom: 1px solid rgba(255,255,255,.12);
-}
-.hero-inner {
-  max-width: 1220px;
-  margin: 0 auto;
-}
-.hero h1 {
-  margin: 0;
-  font-size: 30px;
-  letter-spacing: 0;
-}
-.hero p {
-  margin: 8px 0 0;
-  color: #cbd5e1;
-  font-size: 14px;
-}
-.meta-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 16px;
-}
-.meta-chip {
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.08);
-  color: #e5e7eb;
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 13px;
-}
-.wrap {
-  max-width: 1220px;
-  margin: 0 auto;
-  padding: 18px 20px 40px;
-}
-.tabs {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(245,247,251,.95);
-  backdrop-filter: blur(8px);
-  padding: 10px 0;
-}
-.tab {
-  border: 1px solid var(--line);
-  background: var(--panel);
-  color: var(--slate);
-  border-radius: 6px;
-  padding: 10px 14px;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 14px;
-}
-.tab.active {
-  background: var(--ink);
-  color: #fff;
-  border-color: var(--ink);
-}
-.toolbar {
-  display: grid;
-  grid-template-columns: 1.3fr .8fr .8fr .8fr;
-  gap: 10px;
-  margin: 12px 0 18px;
-}
-.toolbar input, .toolbar select {
-  width: 100%;
-  border: 1px solid var(--line);
-  background: var(--panel);
-  border-radius: 6px;
-  padding: 11px 12px;
-  color: var(--ink);
-  font-size: 14px;
-}
-.summary {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin: 10px 0 18px;
-}
-.summary-card {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 14px;
-}
-.summary-card strong {
-  display: block;
-  font-size: 24px;
-  line-height: 1;
-}
-.summary-card span {
-  color: var(--muted);
-  font-size: 13px;
-}
-.section-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 20px 0 10px;
-}
-.section-title h2 {
-  margin: 0;
-  font-size: 18px;
-}
-.section-title small {
-  color: var(--muted);
-}
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-.program-card, .school-card {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-left: 4px solid var(--slate);
-  border-radius: 8px;
-  padding: 14px;
-}
-.program-card.active { border-left-color: var(--green); }
-.program-card.upcoming { border-left-color: var(--orange); }
-.program-card.closed { border-left-color: var(--red); opacity: .86; }
-.program-card.no_notice { border-left-color: #94a3b8; }
-.card-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  align-items: flex-start;
-}
-.school-name {
-  font-size: 17px;
-  font-weight: 800;
-}
-.unit {
-  color: var(--muted);
-  font-size: 13px;
-  margin-top: 2px;
-}
-.badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 10px;
-}
-.badge {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  padding: 3px 8px;
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-.badge.active { background: var(--soft-green); color: var(--green); }
-.badge.upcoming { background: var(--soft-orange); color: var(--orange); }
-.badge.closed { background: var(--soft-red); color: var(--red); }
-.badge.no_notice { background: #f2f4f7; color: var(--slate); }
-.badge.notice { background: var(--soft-green); color: var(--green); }
-.badge.system { background: var(--soft-blue); color: var(--blue); }
-.badge.missing { background: #f2f4f7; color: var(--muted); }
-.badge.rank { background: #eef2ff; color: #4f46e5; }
-.timeline {
-  margin-top: 12px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-.time-box {
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 8px;
-  background: #fcfcfd;
-}
-.time-box label {
-  display: block;
-  color: var(--muted);
-  font-size: 12px;
-  margin-bottom: 2px;
-}
-.time-box b {
-  font-size: 13px;
-}
-.progress {
-  margin-top: 12px;
-}
-.progress-line {
-  height: 8px;
-  background: #edf0f5;
-  border-radius: 999px;
-  overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  border-radius: 999px;
-  background: var(--green);
-}
-.progress-fill.warn { background: var(--orange); }
-.progress-fill.danger { background: var(--red); }
-.progress-label {
-  display: flex;
-  justify-content: space-between;
-  color: var(--muted);
-  font-size: 12px;
-  margin-bottom: 4px;
-}
-.desc {
-  margin: 12px 0 0;
-  color: #344054;
-  font-size: 14px;
-}
-.actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 12px;
-}
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  text-decoration: none;
-  border-radius: 6px;
-  padding: 8px 10px;
-  font-size: 13px;
-  font-weight: 800;
-  border: 1px solid var(--line);
-  background: #fff;
-}
-.btn.primary {
-  color: #fff;
-  background: var(--blue);
-  border-color: var(--blue);
-}
-.btn.disabled {
-  color: var(--muted);
-  background: #f9fafb;
-  cursor: default;
-}
-.panel {
-  display: none;
-}
-.panel.active {
-  display: block;
-}
-.school-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-.school-card h3 {
-  margin: 0 0 8px;
-  font-size: 17px;
-}
-.school-project {
-  border-top: 1px solid var(--line);
-  padding-top: 10px;
-  margin-top: 10px;
-}
-.school-project strong {
-  display: block;
-  font-size: 14px;
-}
-.empty {
-  background: var(--panel);
-  border: 1px dashed #cbd5e1;
-  border-radius: 8px;
-  padding: 20px;
-  color: var(--muted);
-  text-align: center;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  overflow: hidden;
-}
-th, td {
-  padding: 10px;
-  border-bottom: 1px solid var(--line);
-  text-align: left;
-  font-size: 13px;
-}
-th {
-  background: #f8fafc;
-  color: #475467;
-}
-@media (max-width: 860px) {
-  .toolbar { grid-template-columns: 1fr; }
-  .summary { grid-template-columns: repeat(2, 1fr); }
-  .grid, .school-list { grid-template-columns: 1fr; }
-  .timeline { grid-template-columns: 1fr; }
-}
+:root{--bg:#f5f7fb;--card:#fff;--ink:#162033;--muted:#667085;--line:#e4e7ec;--blue:#2563eb;--green:#159a6a;--orange:#d97706;--red:#dc2626;--violet:#4f46e5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}a{color:inherit}.hero{background:#111827;color:#fff;padding:28px 20px}.wrap,.hero>div{max-width:1260px;margin:auto}.hero h1{margin:0;font-size:30px;letter-spacing:0}.hero p{margin:8px 0 0;color:#cbd5e1;line-height:1.7}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.chip{font-size:13px;padding:6px 10px;border-radius:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18)}.wrap{padding:16px 20px 40px}.tabs{position:sticky;top:0;z-index:5;background:rgba(245,247,251,.96);backdrop-filter:blur(8px);display:flex;gap:8px;flex-wrap:wrap;padding:10px 0}.tab{border:1px solid var(--line);background:#fff;border-radius:6px;padding:10px 14px;font-weight:800;cursor:pointer}.tab.active{background:#162033;color:#fff}.tools{display:grid;grid-template-columns:1.45fr .75fr .75fr .8fr;gap:10px;margin:10px 0 16px}.tools input,.tools select{border:1px solid var(--line);border-radius:6px;padding:11px 12px;background:#fff;font-size:14px}.noticebar{border:1px solid #fbbf24;background:#fffbeb;border-radius:8px;padding:10px 12px;color:#92400e;font-size:14px;line-height:1.7;margin-bottom:14px}.summary{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}.summary>div{background:#fff;border:1px solid var(--line);border-radius:8px;padding:14px}.summary b{display:block;font-size:24px}.summary span{font-size:13px;color:var(--muted)}.panel{display:none}.panel.active{display:block}.head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:18px 0 10px}.head h2{margin:0;font-size:18px}.head small{color:var(--muted);line-height:1.6}.grid,.school-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card,.school{background:#fff;border:1px solid var(--line);border-left:4px solid #94a3b8;border-radius:8px;padding:14px}.card.active{border-left-color:var(--green)}.card.upcoming{border-left-color:var(--orange)}.card.closed{border-left-color:var(--red);opacity:.86}.card.watch{border-left-color:#64748b}.row{display:flex;justify-content:space-between;gap:12px}.name{font-weight:900;font-size:17px}.unit{font-size:13px;color:var(--muted);margin-top:2px}.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.badge{font-size:12px;font-weight:800;border-radius:999px;padding:3px 8px;background:#f2f4f7;color:#475467}.badge.active{background:#ecfdf3;color:var(--green)}.badge.upcoming{background:#fffaeb;color:var(--orange)}.badge.closed{background:#fef3f2;color:var(--red)}.badge.watch{background:#f1f5f9;color:#475569}.badge.notice{background:#ecfdf3;color:var(--green)}.badge.system{background:#eff6ff;color:var(--blue)}.badge.directory{background:#eef2ff;color:var(--violet)}.badge.rank{background:#eef2ff;color:var(--violet)}.desc{font-size:14px;line-height:1.65;color:#344054;margin:12px 0 0}.time{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.time div{border:1px solid var(--line);background:#fcfcfd;border-radius:6px;padding:8px}.time label{display:block;font-size:12px;color:var(--muted)}.progress{margin-top:12px}.pline{height:8px;background:#edf0f5;border-radius:999px;overflow:hidden}.pfill{height:100%;background:var(--green)}.pfill.warn{background:var(--orange)}.pfill.danger{background:var(--red)}.plabel{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.btn{border:1px solid var(--line);background:#fff;border-radius:6px;padding:8px 10px;text-decoration:none;font-size:13px;font-weight:900}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.btn.disabled{color:var(--muted);background:#f9fafb}.school h3{margin:0;font-size:17px}.item{border-top:1px solid var(--line);margin-top:10px;padding-top:10px}.empty{background:#fff;border:1px dashed #cbd5e1;border-radius:8px;padding:20px;text-align:center;color:var(--muted)}table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line)}td,th{border-bottom:1px solid var(--line);padding:10px;text-align:left;font-size:13px;vertical-align:top}th{background:#f8fafc;color:#475467}.ranknote{max-width:420px}@media(max-width:900px){.tools,.grid,.school-grid{grid-template-columns:1fr}.summary{grid-template-columns:repeat(2,1fr)}.time{grid-template-columns:1fr}.head{align-items:flex-start;flex-direction:column}}
 </style>
 </head>
 <body>
-<header class="hero">
-  <div class="hero-inner">
-    <h1>985计算机/AI夏令营与预推免行动看板</h1>
-    <p>默认只展示能直接行动的信息；没有学院官方通知的学校不再用学校首页凑链接。</p>
-    <div class="meta-row">
-      <span class="meta-chip">数据截止：2026年7月4日</span>
-      <span class="meta-chip">用户画像：大连海事 · CS · GPA 3.87</span>
-      <span class="meta-chip">链接规则：学院通知 / 官方报名系统 / 暂缺不放泛链接</span>
-    </div>
-  </div>
-</header>
-
+<header class="hero"><div>
+  <h1>计算机/AI 夏令营与预推免行动看板</h1>
+  <p>默认先看还能操作的项目。链接只放学院通知、学院招生栏目或官方报名系统；找不到学院原文的，不硬写成已确认。</p>
+  <div class="chips"><span class="chip">联网核验：2026年7月14日</span><span class="chip">大连海事 · CS · GPA 3.87</span><span class="chip">完整 985 + 中上游 211 关注池</span><span class="chip">今天优先：正在进行</span></div>
+</div></header>
 <main class="wrap">
-  <nav class="tabs" aria-label="页面标签">
-    <button class="tab active" data-tab="active">正在进行</button>
-    <button class="tab" data-tab="upcoming">即将开始</button>
-    <button class="tab" data-tab="closed">已截止</button>
-    <button class="tab" data-tab="schools">按学校查看</button>
-    <button class="tab" data-tab="ranking">综合排名</button>
-  </nav>
-
-  <div class="toolbar">
-    <input id="search" type="search" placeholder="搜索学校、学院、方向，例如：山东大学 / 人工智能 / 预推免">
-    <select id="typeFilter">
-      <option value="all">全部类型</option>
-      <option value="summer">夏令营</option>
-      <option value="prepush">预推免</option>
-      <option value="system">报名系统</option>
-    </select>
-    <select id="tierFilter">
-      <option value="all">全部梯队</option>
-      <option value="T0">T0</option>
-      <option value="T1">T1</option>
-      <option value="T2">T2</option>
-      <option value="T3">T3</option>
-      <option value="T4">T4</option>
-    </select>
-    <select id="sourceFilter">
-      <option value="all">全部链接质量</option>
-      <option value="notice">学院通知</option>
-      <option value="system">官方报名系统</option>
-      <option value="missing">暂缺学院通知</option>
-    </select>
-  </div>
-
-  <section class="summary" id="summary"></section>
-
-  <section class="panel active" id="panel-active">
-    <div class="section-title">
-      <h2>正在进行</h2>
-      <small>按截止时间从近到远排序</small>
-    </div>
-    <div class="grid" id="activeGrid"></div>
-  </section>
-
-  <section class="panel" id="panel-upcoming">
-    <div class="section-title">
-      <h2>即将开始</h2>
-      <small>主要是预推免窗口和有明确时间线的项目</small>
-    </div>
-    <div class="grid" id="upcomingGrid"></div>
-  </section>
-
-  <section class="panel" id="panel-closed">
-    <div class="section-title">
-      <h2>已截止</h2>
-      <small>保留官方通知，便于参考条件和材料要求</small>
-    </div>
-    <div class="grid" id="closedGrid"></div>
-  </section>
-
-  <section class="panel" id="panel-schools">
-    <div class="section-title">
-      <h2>按学校查看</h2>
-      <small>每校按计算机相关学院/项目拆开，未找到官方通知会明确标注</small>
-    </div>
-    <div class="school-list" id="schoolGrid"></div>
-  </section>
-
-  <section class="panel" id="panel-ranking">
-    <div class="section-title">
-      <h2>综合排名</h2>
-      <small>排名只做择校参考，申请动作以看板为准</small>
-    </div>
-    <div style="overflow:auto">
-      <table id="rankingTable"></table>
-    </div>
-  </section>
+<nav class="tabs"><button class="tab active" data-tab="active">正在进行</button><button class="tab" data-tab="upcoming">即将开始</button><button class="tab" data-tab="watch">需人工复核</button><button class="tab" data-tab="closed">已截止</button><button class="tab" data-tab="schools">按学校查看</button><button class="tab" data-tab="ranking">择校清单</button></nav>
+<div class="tools"><input id="q" placeholder="搜索学校、学院、方向：北邮 / 预推免 / 人工智能 / 网安"><select id="type"><option value="all">全部类型</option><option value="summer">夏令营</option><option value="prepush">预推免</option><option value="directory">招生栏目</option></select><select id="tier"><option value="all">全部梯队</option><option value="T0">T0</option><option value="T1">T1</option><option value="T2">T2</option><option value="T3">T3</option><option value="T4">T4/保底985</option><option value="211">中上游211</option></select><select id="source"><option value="all">全部链接质量</option><option value="notice">学院通知原文</option><option value="system">官方报名系统</option><option value="directory">学院栏目/待核</option></select></div>
+<div class="noticebar">填报顺序建议：先填“正在进行”，再把“即将开始”加入日历提醒；“需人工复核”只作为手动检查入口。页面会按浏览当天自动把已过截止日的项目归入“已截止”，但新增通知仍要靠每日/每周更新任务抓取。</div>
+<section class="summary" id="summary"></section>
+<section class="panel active" id="panel-active"><div class="head"><h2>正在进行</h2><small>优先填报，按截止时间排序。</small></div><div class="grid" id="active"></div></section>
+<section class="panel" id="panel-upcoming"><div class="head"><h2>即将开始</h2><small>多为预推免预估窗口或官方系统入口，临近开始前要再看学院公告。</small></div><div class="grid" id="upcoming"></div></section>
+<section class="panel" id="panel-watch"><div class="head"><h2>需人工复核</h2><small>学校值得关注，但本次未确认到具体可填报的计算机类学院通知。</small></div><div class="grid" id="watch"></div></section>
+<section class="panel" id="panel-closed"><div class="head"><h2>已截止</h2><small>作为材料模板和时间线参考，不建议今天优先处理。</small></div><div class="grid" id="closed"></div></section>
+<section class="panel" id="panel-schools"><div class="head"><h2>按学校查看</h2><small>每个学校按学院/项目拆开，没找到具体通知的会显示复核说明。</small></div><div class="school-grid" id="schools"></div></section>
+<section class="panel" id="panel-ranking"><div class="head"><h2>择校清单</h2><small>含 39 所 985 与中上游 211，排序按计算机/AI 读研与就业综合判断。</small></div><div style="overflow:auto"><table id="ranking"></table></div></section>
 </main>
-
 <script>
-const rankings = [
-  [1,"清华大学","T0","北京","A+","行业认可度最高；AI/系统/数据库均强"],
-  [2,"北京大学","T0","北京","A+","CV、理论、AI基础强"],
-  [3,"浙江大学","T0","杭州","A+","AI、跨媒体、工程化强"],
-  [4,"上海交通大学","T0","上海","A","AI、系统、机器人强"],
-  [5,"南京大学","T1","南京","A","LAMDA、机器学习强"],
-  [6,"哈尔滨工业大学","T1","哈尔滨/深圳","A","NLP传统强校"],
-  [7,"北京航空航天大学","T1","北京","A","VR、无人系统、工程背景强"],
-  [8,"华中科技大学","T1","武汉","A","工程与产业结合强"],
-  [9,"电子科技大学","T1","成都","A","AI芯片、智能硬件、网安强"],
-  [10,"中国科学技术大学","T1","合肥","A-","数理底蕴强"],
-  [11,"国防科技大学","T1","长沙","A+","体系结构、超算强"],
-  [12,"西安交通大学","T2","西安","A-","视觉、智能机器人"],
-  [13,"西北工业大学","T2","西安","A-","无人机、军工AI"],
-  [14,"北京理工大学","T2","北京","A-","智能无人系统"],
-  [15,"武汉大学","T2","武汉","A-","遥感+AI交叉"],
-  [16,"同济大学","T2","上海","A-","智能驾驶"],
-  [17,"中南大学","T2","长沙","A-","医学AI、交通"],
-  [18,"东北大学","T2","沈阳","A-","自动化底子强"],
-  [19,"吉林大学","T2","长春","A-","知识工程、综合体量大"],
-  [20,"复旦大学","T3","上海","B+","综合声誉强"],
-  [21,"中国人民大学","T3","北京","B+","数据库、信息检索强"],
-  [22,"东南大学","T3","南京","B+","通信/电子信息交叉"],
-  [23,"天津大学","T3","天津","B+","智能与计算学部"],
-  [24,"南开大学","T3","天津","B+","AI学院、CV方向"],
-  [25,"中山大学","T3","广州","B+","湾区区位"],
-  [26,"华南理工大学","T3","广州","B+","珠三角就业强"],
-  [27,"厦门大学","T3","厦门","B+","信息学院"],
-  [28,"四川大学","T3","成都","B+","医学AI交叉"],
-  [29,"湖南大学","T3","长沙","B+","智能驾驶"],
-  [30,"大连理工大学","T3","大连","B+","老牌工科"],
-  [31,"山东大学","T3","青岛/济南","B+","青岛计算机学院"],
-  [32,"重庆大学","T3","重庆","B+","大数据方向"],
-  [33,"华东师范大学","T3","上海","B+","教育AI、数据库"],
-  [34,"中国农业大学","T3","北京","B-","农业AI交叉"],
-  [35,"兰州大学","T3","兰州","B","985保底"],
-  [36,"中央民族大学","T4","北京","C-","信息工程学院"],
-  [37,"西北农林科技大学","T4","杨凌","C-","农业信息化"],
-  [38,"中国海洋大学","T4","青岛","C+","海洋信息方向"],
-  [39,"北京师范大学","T4","北京","C+","AI学院"]
+const checkedAt="2026-07-14";
+const now=new Date();
+const ranks=[
+[1,"清华大学","T0","北京","A+","CS/AI 顶级，系统和交叉方向都强"],
+[2,"北京大学","T0","北京","A+","计算机学院、前沿交叉、大数据/机器学习"],
+[3,"浙江大学","T0","杭州","A+","CS、AI、工程化和区位都强"],
+[4,"上海交通大学","T0","上海","A","计算机/AI/网安重组后资源集中"],
+[5,"南京大学","T1","南京","A","LAMDA、软件与AI基础强"],
+[6,"哈尔滨工业大学","T1","哈尔滨/深圳","A","NLP、机器人、工程体系强"],
+[7,"北京航空航天大学","T1","北京","A","计算机、软件、网安、航空智能"],
+[8,"华中科技大学","T1","武汉","A","工程与产业认可高"],
+[9,"电子科技大学","T1","成都","A","计算机、网安、电子信息交叉强"],
+[10,"中国科学技术大学","T1","合肥","A-","数理基础强，适合科研路线"],
+[11,"国防科技大学","T1","长沙","A+","超算、系统、网安强，报考约束需单独确认"],
+[12,"西安交通大学","T2","西安","A-","电信学部、软件、网安方向"],
+[13,"西北工业大学","T2","西安","A-","无人系统、智能感知、军工背景"],
+[14,"北京理工大学","T2","北京","A-","军工AI、智能系统"],
+[15,"武汉大学","T2","武汉","A-","遥感AI、网安、软件"],
+[16,"同济大学","T2","上海","A-","智能驾驶、软件、工程应用"],
+[17,"中南大学","T2","长沙","A-","医学AI、数据智能"],
+[18,"东北大学","T2","沈阳","A-","自动化底子强，计算机稳"],
+[19,"吉林大学","T2","长春","A-","知识工程、软件"],
+[20,"复旦大学","T3","上海","B+","名校光环强，CS规模相对小"],
+[21,"中国人民大学","T3","北京","B+","数据库、信息检索、AI交叉"],
+[22,"东南大学","T3","南京","B+","通信、软件、AI交叉"],
+[23,"天津大学","T3","天津","B+","智能与计算、软件"],
+[24,"南开大学","T3","天津","B+","AI学院与数学基础"],
+[25,"中山大学","T3","广州","B+","湾区资源、AI/软件"],
+[26,"华南理工大学","T3","广州","B+","珠三角就业，计算机工科"],
+[27,"厦门大学","T3","厦门","B+","信息学院，区位舒适"],
+[28,"四川大学","T3","成都","B+","医学AI、软件"],
+[29,"湖南大学","T3","长沙","B+","智能驾驶、软件"],
+[30,"大连理工大学","T3","大连","B+","老牌工科，东北区位友好"],
+[31,"山东大学","T3","青岛/济南","B+","青岛计算机、AI"],
+[32,"重庆大学","T3","重庆","B+","大数据、软件"],
+[33,"华东师范大学","T3","上海","B+","教育AI、数据库、软件"],
+[34,"中国农业大学","T4","北京","B-","农业AI，计算机非主强项"],
+[35,"中国海洋大学","T4","青岛","B","海洋信息、AI交叉，可保底"],
+[36,"中央民族大学","T4","北京","C+","985身份强，计算机非主强项"],
+[37,"西北农林科技大学","T4","杨凌","C+","农业信息化/AI交叉，偏保底"],
+[38,"兰州大学","T4","兰州","B","985保底，数理基础尚可"],
+[39,"北京师范大学","T4","北京","B+","AI学院、教育智能交叉"],
+[40,"北京邮电大学","211","北京","A","通信+计算机强，行业认可很高"],
+[41,"西安电子科技大学","211","西安","A-","电子信息、网安、AI强"],
+[42,"北京交通大学","211","北京","B+","交通信息、计算机"],
+[43,"北京科技大学","211","北京","B+","计算机与通信、工业智能"],
+[44,"南京航空航天大学","211","南京","B+","AI、软件、网安、航空交叉"],
+[45,"南京理工大学","211","南京","B+","军工、智能系统、软件"],
+[46,"苏州大学","211","苏州","B+","长三角区位好，计算机上升"],
+[47,"合肥工业大学","211","合肥","B+","工科强，智能制造、软件"],
+[48,"上海大学","211","上海","B+","上海区位，计算机可作为补充"],
+[49,"郑州大学","211","郑州","B+","规模大，保底/稳妥备选"],
+[50,"西南交通大学","211","成都","B+","交通信息、计算机"],
+[51,"河海大学","211","南京","B","水利信息、计算机交叉"],
+[52,"武汉理工大学","211","武汉","B+","车辆/材料/智能制造交叉"],
+[53,"华北电力大学","211","北京/保定","B","电力AI、能源信息"],
+[54,"中国矿业大学","211","徐州/北京","B","矿业智能、信息与控制"]
 ];
-
-const projects = [
-  {
-    school:"华东师范大学", tier:"T3", unit:"计算机科学与技术学院", type:"summer", status:"active",
-    title:"2026年优秀大学生夏令营", start:"2026-07-01", deadline:"2026-07-07", event:"2026-07-22",
-    desc:"约60人，7月22日开营。当前处于报名期，适合同时关注上海区位和AI/数据库方向。",
-    noticeUrl:"https://cs.ecnu.edu.cn/b6/40/c19867a767552/page.htm", applyUrl:"https://yjszs-ks.ecnu.edu.cn/logon?zsxm=4",
-    source:"notice"
-  },
-  {
-    school:"山东大学", tier:"T3", unit:"计算机科学与技术学院", type:"summer", status:"active",
-    title:"2026年全国优秀大学生暑期夏令营", start:"2026-06-29", deadline:"2026-07-08", event:"2026-07-13",
-    desc:"线上夏令营，报名系统搜索“计算机学院”。学院通知明确给出报名日期和申请流程。",
-    noticeUrl:"https://www.cs.sdu.edu.cn/info/1068/6855.htm", applyUrl:"https://sduyjs.sdu.edu.cn/yjszs/plugins/zs/xlyxsd/entrance#/xlyksdSummerCamp",
-    source:"notice"
-  },
-  {
-    school:"中国人民大学", tier:"T3", unit:"信息学院 / 高瓴人工智能学院", type:"prepush", status:"active",
-    title:"2026年推免预报名", start:"2026-07-01", deadline:"2026-07-12", event:"待学院通知",
-    desc:"当前记录为官方报名系统入口；暂未在本次核对中定位到稳定的学院通知原文。CSP高分通常可关注免机考政策。",
-    noticeUrl:"", applyUrl:"http://yjsfs.ruc.edu.cn/tp/zs/login/toLogin/tm",
-    source:"system"
-  },
-  {
-    school:"清华大学", tier:"T0", unit:"计算机科学与技术系", type:"prepush", status:"active",
-    title:"推免预报名", start:"2026-06-18", deadline:"2026-07-15", event:"8-9月综合考核",
-    desc:"计算机系按预推免推进；当前仅保留官方研究生申请系统入口，不放学院首页占位。",
-    noticeUrl:"", applyUrl:"https://yzbm.tsinghua.edu.cn",
-    source:"system"
-  },
-  {
-    school:"哈尔滨工业大学", tier:"T1", unit:"计算学部", type:"prepush", status:"active",
-    title:"推免信息采集 / 预报名", start:"2026-06-22", deadline:"2026-08-20", event:"8-9月复试",
-    desc:"夏令营批次已结束，后续重点转向推免信息采集和预报名。",
-    noticeUrl:"http://www.cs.hit.edu.cn/2026/0605/c11271a393612/page.htm", applyUrl:"http://yzb.hit.edu.cn",
-    source:"notice"
-  },
-  {
-    school:"浙江大学", tier:"T0", unit:"计算机科学与技术学院", type:"prepush", status:"upcoming",
-    title:"预推免报名窗口", start:"2026-07-29", deadline:"2026-09-10", event:"8-9月考核",
-    desc:"夏令营已截止，下一步看预推免系统。适合提前联系导师并准备直博/专硕材料。",
-    noticeUrl:"", applyUrl:"https://yjsy.zju.edu.cn/grsinfo/zs/user/login",
-    source:"system"
-  },
-  {
-    school:"中南大学", tier:"T2", unit:"计算机学院", type:"prepush", status:"upcoming",
-    title:"预推免系统预计开放", start:"2026-08-01", deadline:"2026-09-10", event:"分批考核",
-    desc:"近年以预推免替代传统夏令营，适合作为主申/稳妥目标持续跟进。",
-    noticeUrl:"", applyUrl:"https://yjszsgl.csu.edu.cn/zsgl2026/tmsgl/default.aspx",
-    source:"system"
-  },
-  {
-    school:"厦门大学", tier:"T3", unit:"信息学院", type:"prepush", status:"upcoming",
-    title:"预推免报名窗口", start:"2026-08-18", deadline:"2026-09-07", event:"9月考核",
-    desc:"当前保留官方报名系统入口；学院通知需临近开放期再次核对。",
-    noticeUrl:"", applyUrl:"https://ssyjsbm.xmu.edu.cn",
-    source:"system"
-  },
-  {
-    school:"东北大学", tier:"T2", unit:"计算机科学与工程学院", type:"prepush", status:"upcoming",
-    title:"预推免预计开放", start:"2026-08-27", deadline:"2026-09-15", event:"9月考核",
-    desc:"夏令营官方通知未定位到，后续以研招系统和学院通知为准。",
-    noticeUrl:"", applyUrl:"http://yz.neu.edu.cn",
-    source:"system"
-  },
-  {
-    school:"同济大学", tier:"T2", unit:"计算机科学与技术学院", type:"prepush", status:"upcoming",
-    title:"预推免预计开放", start:"2026-08-30", deadline:"2026-09-19", event:"9月考核",
-    desc:"计算机学院暑期学校未找到稳定官方新通知，预推免系统需重点关注。",
-    noticeUrl:"", applyUrl:"https://yzbm.tongji.edu.cn",
-    source:"system"
-  },
-  {
-    school:"西安交通大学", tier:"T2", unit:"计算机科学与技术学院 / 软件学院 / 网安学院", type:"prepush", status:"upcoming",
-    title:"预推免预计开放", start:"2026-09-05", deadline:"2026-09-15", event:"9月考核",
-    desc:"夏令营已截止，后续关注电信学部相关学院预推免。",
-    noticeUrl:"", applyUrl:"http://yzbm.xjtu.edu.cn",
-    source:"system"
-  },
-  {
-    school:"武汉大学", tier:"T2", unit:"计算机学院", type:"prepush", status:"upcoming",
-    title:"预推免预计开放", start:"2026-09-06", deadline:"2026-09-10", event:"9月考核",
-    desc:"当前记录为预推免阶段入口；未放学校首页。",
-    noticeUrl:"", applyUrl:"https://cs.whu.edu.cn/info/1055/56011.htm",
-    source:"system"
-  },
-  {
-    school:"北京大学", tier:"T0", unit:"计算机学院", type:"summer", status:"closed",
-    title:"2026年优秀大学生夏令营", start:"2026-06-01", deadline:"2026-06-15", event:"7月",
-    desc:"学院通知原文明确为计算机学院夏令营，已截止，可参考材料要求。",
-    noticeUrl:"https://cs.pku.edu.cn/info/1022/5820.htm", applyUrl:"https://admission.pku.edu.cn/xly/index.htm",
-    source:"notice"
-  },
-  {
-    school:"北京大学", tier:"T0", unit:"前沿交叉学科研究院", type:"summer", status:"closed",
-    title:"交叉学科优秀大学生夏令营（大数据/机器学习相关）", start:"2026-06-01", deadline:"2026-06-14", event:"2026-07-06至07-09",
-    desc:"适合计算机背景申请大数据、机器学习交叉方向，已截止。",
-    noticeUrl:"http://www.aais.pku.edu.cn/info/1058/19671.htm", applyUrl:"http://aaissummer.pku.edu.cn",
-    source:"notice"
-  },
-  {
-    school:"浙江大学", tier:"T0", unit:"计算机科学与技术学院", type:"summer", status:"closed",
-    title:"暑期实习 / 夏令营", start:"2026-05-27", deadline:"2026-06-25", event:"7-8月",
-    desc:"夏令营已截止，链接为学院通知原文。",
-    noticeUrl:"http://www.cs.zju.edu.cn/csen/2026/0527/c27011a3167062/page.htm", applyUrl:"https://yjsy.zju.edu.cn/grsinfo/zs/user/login",
-    source:"notice"
-  },
-  {
-    school:"上海交通大学", tier:"T0", unit:"计算机学院 / 人工智能学院", type:"summer", status:"closed",
-    title:"2026年优秀大学生夏令营", start:"2026-06-13", deadline:"2026-07-03", event:"7月下旬",
-    desc:"计算机与AI相关夏令营已截止，后续重点看预推免。",
-    noticeUrl:"https://www.gs.sjtu.edu.cn/post/detail/Z3MzMjIx", applyUrl:"https://ga.sjtu.edu.cn/zsgl/xlygl/default.aspx",
-    source:"notice"
-  },
-  {
-    school:"电子科技大学", tier:"T1", unit:"计算机科学与工程学院 / 网安学院", type:"summer", status:"closed",
-    title:"深源英才营 / 暑期夏令营", start:"2026-06-01", deadline:"2026-06-22", event:"7月",
-    desc:"夏令营已截止，可参考学院要求和专业方向。",
-    noticeUrl:"https://yz.uestc.edu.cn/info/1064/5526.htm", applyUrl:"https://yzbm.uestc.edu.cn/logon",
-    source:"notice"
-  },
-  {
-    school:"中国科学技术大学", tier:"T1", unit:"计算机科学与技术学院", type:"summer", status:"closed",
-    title:"计算机科学暑期夏令营", start:"2026-05-19", deadline:"2026-06-20", event:"2026-07-15至07-19",
-    desc:"计算机科学夏令营已截止，链接为学院通知。",
-    noticeUrl:"http://cs.ustc.edu.cn/2026/0519/c22510a741173/page.htm", applyUrl:"https://yz.ustc.edu.cn",
-    source:"notice"
-  },
-  {
-    school:"西安交通大学", tier:"T2", unit:"计算机科学与技术学院 / 软件学院 / 网安学院", type:"summer", status:"closed",
-    title:"优秀大学生夏令营", start:"2026-06-01", deadline:"2026-06-15", event:"7月",
-    desc:"夏令营已截止。",
-    noticeUrl:"http://www.cs.xjtu.edu.cn/xwgg/tzgg.htm", applyUrl:"http://yzbm.xjtu.edu.cn",
-    source:"notice"
-  },
-  {
-    school:"北京师范大学", tier:"T4", unit:"人工智能学院", type:"summer", status:"closed",
-    title:"大模型创新训练营", start:"2026-05-01", deadline:"2026-06-22", event:"2026-07-04至07-08",
-    desc:"AI相关夏令营已截止。",
-    noticeUrl:"https://ai.bnu.edu.cn/ggjxz/tzgg/ada97c6b63724b75b67be35d57b06cc0.htm", applyUrl:"https://xly.bnu.edu.cn/xly",
-    source:"notice"
-  }
+const projects=[
+{school:"清华大学",tier:"T0",unit:"计算机科学与技术系/研究生申请系统",type:"prepush",status:"active",title:"推免预报名",start:"2026-06-18",deadline:"2026-07-15",event:"8-9月综合考核",desc:"官方申请服务系统可进入；未定位到计算机系单独夏令营原文，填报前进系统确认专业和批次。",noticeUrl:"",applyUrl:"https://yzbm.tsinghua.edu.cn",source:"system"},
+{school:"哈尔滨工业大学",tier:"T1",unit:"计算学部",type:"prepush",status:"active",title:"推免信息采集/预报名",start:"2026-06-22",deadline:"2026-08-20",event:"8-9月复试",desc:"夏令营阶段已过，当前重点看推免信息采集和预报名。",noticeUrl:"http://www.cs.hit.edu.cn/2026/0605/c11271a393612/page.htm",applyUrl:"http://yzb.hit.edu.cn",source:"notice"},
+{school:"浙江大学",tier:"T0",unit:"计算机科学与技术学院",type:"prepush",status:"upcoming",title:"预推免报名窗口",start:"2026-07-29",deadline:"2026-09-10",event:"8-9月考核",desc:"夏令营已截止，下一步看预推免系统；具体学院通知需开放前复核。",noticeUrl:"",applyUrl:"https://yjsy.zju.edu.cn/grsinfo/zs/user/login",source:"system"},
+{school:"中南大学",tier:"T2",unit:"计算机学院",type:"prepush",status:"upcoming",title:"预推免预计开放",start:"2026-08-01",deadline:"2026-09-10",event:"分批考核",desc:"近年预推免窗口通常在8-9月，适合作为稳妥主申目标；等学院通知发布后再替换为原文。",noticeUrl:"",applyUrl:"https://yjszsgl.csu.edu.cn/zsgl2026/tmsgl/default.aspx",source:"system"},
+{school:"厦门大学",tier:"T3",unit:"信息学院",type:"prepush",status:"upcoming",title:"预推免报名窗口",start:"2026-08-18",deadline:"2026-09-07",event:"9月考核",desc:"当前保留官方报名系统入口，学院通知需临近开放期再次核对。",noticeUrl:"",applyUrl:"https://ssyjsbm.xmu.edu.cn",source:"system"},
+{school:"东北大学",tier:"T2",unit:"计算机科学与工程学院",type:"prepush",status:"upcoming",title:"预推免预计开放",start:"2026-08-27",deadline:"2026-09-15",event:"9月考核",desc:"后续以研招系统和学院通知为准。",noticeUrl:"",applyUrl:"http://yz.neu.edu.cn",source:"system"},
+{school:"同济大学",tier:"T2",unit:"计算机科学与技术学院",type:"prepush",status:"upcoming",title:"预推免预计开放",start:"2026-08-30",deadline:"2026-09-19",event:"9月考核",desc:"暑期学校未确认到稳定新通知，预推免系统需重点关注。",noticeUrl:"",applyUrl:"https://yzbm.tongji.edu.cn",source:"system"},
+{school:"西安交通大学",tier:"T2",unit:"电信学部相关学院",type:"prepush",status:"upcoming",title:"预推免预计开放",start:"2026-09-05",deadline:"2026-09-15",event:"9月考核",desc:"夏令营已截止，后续关注电信学部计算机、软件、网安相关学院预推免。",noticeUrl:"",applyUrl:"http://yzbm.xjtu.edu.cn",source:"system"},
+{school:"武汉大学",tier:"T2",unit:"计算机学院",type:"prepush",status:"upcoming",title:"预推免预计开放",start:"2026-09-06",deadline:"2026-09-10",event:"9月考核",desc:"当前记录为预推免阶段入口线索，填报前需确认学院最新通知。",noticeUrl:"",applyUrl:"https://cs.whu.edu.cn/info/1055/56011.htm",source:"system"},
+{school:"北京邮电大学",tier:"211",unit:"计算机学院/人工智能学院/网安学院",type:"directory",status:"watch",title:"强 211，需逐学院复核",start:"",deadline:"",event:"通常8-9月预推免",desc:"未确认到当前可填的2026计算机类通知原文；北邮值得每天看一次学院招生栏目。",noticeUrl:"https://scs.bupt.edu.cn",applyUrl:"https://yzb.bupt.edu.cn",source:"directory"},
+{school:"西安电子科技大学",tier:"211",unit:"计算机科学与技术学院",type:"directory",status:"watch",title:"学院招生信息栏目",start:"",deadline:"",event:"通常8-9月预推免",desc:"学院招生栏目已定位；本次未确认到当前可填的具体夏令营/预推免通知。",noticeUrl:"https://cs.xidian.edu.cn/yjsjy/zsxx.htm",applyUrl:"",source:"directory"},
+{school:"北京科技大学",tier:"211",unit:"计算机与通信工程学院",type:"directory",status:"watch",title:"2026优秀大学生学术沙龙线索",start:"2026-06-24",deadline:"",event:"需人工复核",desc:"学院官网出现优秀大学生学术沙龙线索，但详情可能跳转微信原文；需人工确认是否仍可报名。",noticeUrl:"https://scce.ustb.edu.cn/",applyUrl:"",source:"directory"},
+{school:"南京航空航天大学",tier:"211",unit:"计算机科学与技术学院/人工智能学院",type:"directory",status:"watch",title:"中上游211重点复核",start:"",deadline:"",event:"通常8-9月预推免",desc:"未确认到当前可填的官方通知。南航计算机、软件、网安方向值得作为211主申备选。",noticeUrl:"https://cs.nuaa.edu.cn/",applyUrl:"",source:"directory"},
+{school:"南京理工大学",tier:"211",unit:"计算机科学与工程学院",type:"directory",status:"watch",title:"中上游211重点复核",start:"",deadline:"",event:"通常8-9月预推免",desc:"未确认到当前可填的官方通知。南理工适合作为工科/军工背景211备选。",noticeUrl:"https://cs.njust.edu.cn/",applyUrl:"",source:"directory"},
+{school:"北京交通大学",tier:"211",unit:"计算机与信息技术学院",type:"directory",status:"watch",title:"中上游211重点复核",start:"",deadline:"",event:"通常8-9月预推免",desc:"未确认到当前可填的官方通知。北交计算机和交通信息交叉适合关注。",noticeUrl:"https://cs.bjtu.edu.cn/",applyUrl:"",source:"directory"},
+{school:"苏州大学",tier:"211",unit:"计算机科学与技术学院",type:"directory",status:"watch",title:"中上游211重点复核",start:"",deadline:"",event:"通常8-9月预推免",desc:"未确认到当前可填的官方通知。苏大区位好，可作为长三角211补充。",noticeUrl:"https://scst.suda.edu.cn/",applyUrl:"",source:"directory"},
+{school:"合肥工业大学",tier:"211",unit:"计算机与信息学院",type:"directory",status:"watch",title:"中上游211重点复核",start:"",deadline:"",event:"通常8-9月预推免",desc:"未确认到当前可填的官方通知。合工大工科强，可作为稳妥211。",noticeUrl:"https://ci.hfut.edu.cn/",applyUrl:"",source:"directory"},
+{school:"上海大学",tier:"211",unit:"计算机工程与科学学院",type:"directory",status:"watch",title:"上海211补充复核",start:"",deadline:"",event:"通常8-9月预推免",desc:"未确认到当前可填的官方通知；上海区位较好，作为补充关注。",noticeUrl:"https://cs.shu.edu.cn/",applyUrl:"",source:"directory"},
+{school:"武汉理工大学",tier:"211",unit:"计算机与人工智能学院",type:"directory",status:"watch",title:"武汉211补充复核",start:"",deadline:"",event:"通常8-9月预推免",desc:"未确认到当前可填的官方通知；适合智能制造、车辆智能、AI交叉方向。",noticeUrl:"https://cst.whut.edu.cn/",applyUrl:"",source:"directory"},
+{school:"北京大学",tier:"T0",unit:"计算机学院",type:"summer",status:"closed",title:"2026年优秀大学生夏令营",start:"2026-06-01",deadline:"2026-06-15",event:"2026-07-04至07-07",desc:"学院通知原文明确报名 6月1日至6月15日17:00，已截止。",noticeUrl:"https://cs.pku.edu.cn/info/1022/5820.htm",applyUrl:"https://admission.pku.edu.cn/xly/index.htm",source:"notice"},
+{school:"北京大学",tier:"T0",unit:"前沿交叉学科研究院",type:"summer",status:"closed",title:"交叉学科优秀大学生夏令营",start:"2026-06-01",deadline:"2026-06-14",event:"2026-07-06至07-09",desc:"大数据科学研究中心、国际机器学习研究中心相关，已截止。",noticeUrl:"https://www.aais.pku.edu.cn/info/1058/19671.htm",applyUrl:"http://aaissummer.pku.edu.cn",source:"notice"},
+{school:"浙江大学",tier:"T0",unit:"计算机科学与技术学院",type:"summer",status:"closed",title:"暑期实习/夏令营",start:"2026-05-27",deadline:"2026-06-25",event:"7-8月",desc:"夏令营已截止。",noticeUrl:"http://www.cs.zju.edu.cn/csen/2026/0527/c27011a3167062/page.htm",applyUrl:"https://yjsy.zju.edu.cn/grsinfo/zs/user/login",source:"notice"},
+{school:"上海交通大学",tier:"T0",unit:"计算机学院",type:"summer",status:"closed",title:"2026级优才夏令营",start:"2025-06-26",deadline:"2025-07-03",event:"2025年7月中下旬",desc:"官方原文为2026级研究生优秀生源选拔，报名已截止；如有9月推免补录需另看新通知。",noticeUrl:"https://www.gs.sjtu.edu.cn/post/detail/Z3MzMjIx",applyUrl:"https://ga.sjtu.edu.cn/zsgl/xlygl/default.aspx",source:"notice"},
+{school:"电子科技大学",tier:"T1",unit:"计算机科学与工程学院/网安学院",type:"summer",status:"closed",title:"各学院2026年夏令营相关活动",start:"2025-06-12",deadline:"2026-06-22",event:"7月",desc:"研招网汇总页含计算机科学与工程学院（网络空间安全学院）链接，当前夏令营阶段已过。",noticeUrl:"https://yz.uestc.edu.cn/info/1064/5526.htm",applyUrl:"https://yzbm.uestc.edu.cn/logon",source:"notice"},
+{school:"中国科学技术大学",tier:"T1",unit:"计算机科学与技术学院",type:"summer",status:"closed",title:"2026年暑期科学营",start:"2026-05-20",deadline:"",event:"2026-07-13至07-17",desc:"学院原文未明示报名截止日；活动已进入举行期，不作为今天新增填报入口。",noticeUrl:"https://cs.ustc.edu.cn/2026/0519/c22510a741173/page.htm",applyUrl:"http://xspt.ustc.edu.cn/",source:"notice"},
+{school:"西安交通大学",tier:"T2",unit:"计算机/软件/网安相关学院",type:"summer",status:"closed",title:"优秀大学生夏令营",start:"2026-06-01",deadline:"2026-06-15",event:"7月",desc:"夏令营已截止，后续转看电信学部预推免。",noticeUrl:"http://www.cs.xjtu.edu.cn/xwgg/tzgg.htm",applyUrl:"http://yzbm.xjtu.edu.cn",source:"notice"},
+{school:"山东大学",tier:"T3",unit:"计算机科学与技术学院",type:"summer",status:"closed",title:"全国优秀大学生暑期夏令营",start:"2026-06-29",deadline:"2026-07-08",event:"2026-07-13",desc:"学院通知原文明确报名 6月29日至7月8日，线上夏令营已截止。",noticeUrl:"https://www.cs.sdu.edu.cn/info/1068/6855.htm",applyUrl:"https://sduyjs.sdu.edu.cn/yjszs/plugins/zs/xlyxsd/entrance#/xlyksdSummerCamp",source:"notice"},
+{school:"华东师范大学",tier:"T3",unit:"计算机科学与技术学院",type:"summer",status:"closed",title:"优秀大学生夏令营",start:"2026-07-01",deadline:"2026-07-07",event:"2026-07-22",desc:"学院通知原文明确7月1日9点开放、7月7日17点截止，已截止。",noticeUrl:"https://cs.ecnu.edu.cn/b6/40/c19867a767552/page.htm",applyUrl:"https://yjszs-ks.ecnu.edu.cn/logon?zsxm=4",source:"notice"},
+{school:"中国人民大学",tier:"T3",unit:"信息学院/高瓴人工智能学院",type:"prepush",status:"closed",title:"推免预报名",start:"2026-07-01",deadline:"2026-07-12",event:"待学院通知",desc:"报名窗口已过。",noticeUrl:"",applyUrl:"http://yjsfs.ruc.edu.cn/tp/zs/login/toLogin/tm",source:"system"},
+{school:"北京师范大学",tier:"T4",unit:"人工智能学院",type:"summer",status:"closed",title:"优秀大学生夏令营暨大模型创新训练营",start:"2026-05-21",deadline:"2026-06-22",event:"2026-07-04至07-08",desc:"学院通知原文明确报名截止为6月22日12:00，已截止。",noticeUrl:"https://ai.bnu.edu.cn/ggjxz/tzgg/ada97c6b63724b75b67be35d57b06cc0.htm",applyUrl:"https://xly.bnu.edu.cn/xly",source:"notice"}
 ];
-
-const noNoticeSchools = [
-  "南京大学","北京航空航天大学","华中科技大学","国防科技大学","西北工业大学","北京理工大学",
-  "复旦大学","东南大学","天津大学","南开大学","中山大学","华南理工大学","四川大学",
-  "湖南大学","大连理工大学","重庆大学","中国农业大学","兰州大学","中央民族大学",
-  "西北农林科技大学","中国海洋大学","吉林大学"
-];
-
-function byDate(a, b) {
-  const ad = a.deadline || "2099-12-31";
-  const bd = b.deadline || "2099-12-31";
-  return ad.localeCompare(bd);
-}
-
-function daysLeft(dateStr) {
-  if (!dateStr) return null;
-  const now = new Date("2026-07-04T00:00:00+08:00");
-  const end = new Date(dateStr + "T23:59:59+08:00");
-  return Math.ceil((end - now) / 86400000);
-}
-
-function progress(project) {
-  if (!project.deadline) return "";
-  const start = project.start ? new Date(project.start + "T00:00:00+08:00") : new Date("2026-05-01T00:00:00+08:00");
-  const end = new Date(project.deadline + "T23:59:59+08:00");
-  const now = new Date("2026-07-04T00:00:00+08:00");
-  const total = Math.max(1, end - start);
-  const pct = Math.max(0, Math.min(100, Math.round(((now - start) / total) * 100)));
-  const left = daysLeft(project.deadline);
-  const cls = left !== null && left <= 2 ? "danger" : left !== null && left <= 7 ? "warn" : "";
-  const label = left === null ? "" : left < 0 ? "已截止" : left === 0 ? "今天截止" : "剩余 " + left + " 天";
-  return '<div class="progress"><div class="progress-label"><span>截止进度</span><span>' + label + '</span></div><div class="progress-line"><div class="progress-fill ' + cls + '" style="width:' + pct + '%"></div></div></div>';
-}
-
-function sourceBadge(project) {
-  if (project.source === "notice") return '<span class="badge notice">学院通知</span>';
-  if (project.source === "system") return '<span class="badge system">官方报名系统</span>';
-  return '<span class="badge missing">暂缺学院通知</span>';
-}
-
-function typeLabel(type) {
-  if (type === "summer") return "夏令营";
-  if (type === "prepush") return "预推免";
-  return "报名系统";
-}
-
-function statusLabel(status) {
-  return {active:"正在进行", upcoming:"即将开始", closed:"已截止", no_notice:"暂无通知"}[status] || status;
-}
-
-function filtered(list) {
-  const q = document.getElementById("search").value.trim().toLowerCase();
-  const type = document.getElementById("typeFilter").value;
-  const tier = document.getElementById("tierFilter").value;
-  const source = document.getElementById("sourceFilter").value;
-  return list.filter(p => {
-    const hay = [p.school, p.unit, p.title, p.desc, p.tier].join(" ").toLowerCase();
-    if (q && !hay.includes(q)) return false;
-    if (type !== "all" && p.type !== type) return false;
-    if (tier !== "all" && p.tier !== tier) return false;
-    if (source !== "all" && p.source !== source) return false;
-    return true;
-  });
-}
-
-function card(project) {
-  const mainLink = project.noticeUrl || project.applyUrl;
-  const noticeButton = project.noticeUrl
-    ? '<a class="btn primary" target="_blank" href="' + project.noticeUrl + '">学院通知</a>'
-    : '<span class="btn disabled">暂无学院通知原文</span>';
-  const applyButton = project.applyUrl
-    ? '<a class="btn" target="_blank" href="' + project.applyUrl + '">报名系统</a>'
-    : '';
-  return '<article class="program-card ' + project.status + '">' +
-    '<div class="card-head"><div><div class="school-name">' + project.school + '</div><div class="unit">' + project.unit + '</div></div><span class="badge rank">' + project.tier + '</span></div>' +
-    '<div class="badges"><span class="badge ' + project.status + '">' + statusLabel(project.status) + '</span><span class="badge">' + typeLabel(project.type) + '</span>' + sourceBadge(project) + '</div>' +
-    '<p class="desc"><strong>' + project.title + '</strong><br>' + project.desc + '</p>' +
-    '<div class="timeline"><div class="time-box"><label>报名开始</label><b>' + (project.start || "待定") + '</b></div><div class="time-box"><label>报名截止</label><b>' + (project.deadline || "待定") + '</b></div><div class="time-box"><label>活动/考核</label><b>' + (project.event || "待定") + '</b></div></div>' +
-    progress(project) +
-    '<div class="actions">' + noticeButton + applyButton + '</div>' +
-  '</article>';
-}
-
-function renderPanel(status, id) {
-  const list = filtered(projects.filter(p => p.status === status)).sort(byDate);
-  document.getElementById(id).innerHTML = list.length ? list.map(card).join("") : '<div class="empty">当前筛选下没有项目。</div>';
-}
-
-function renderSummary() {
-  const counts = {
-    active: projects.filter(p => p.status === "active").length,
-    upcoming: projects.filter(p => p.status === "upcoming").length,
-    closed: projects.filter(p => p.status === "closed").length,
-    notice: projects.filter(p => p.source === "notice").length
-  };
-  document.getElementById("summary").innerHTML =
-    '<div class="summary-card"><strong>' + counts.active + '</strong><span>正在进行</span></div>' +
-    '<div class="summary-card"><strong>' + counts.upcoming + '</strong><span>即将开始</span></div>' +
-    '<div class="summary-card"><strong>' + counts.closed + '</strong><span>已截止</span></div>' +
-    '<div class="summary-card"><strong>' + counts.notice + '</strong><span>有学院通知原文</span></div>';
-}
-
-function renderSchools() {
-  const q = document.getElementById("search").value.trim().toLowerCase();
-  const tier = document.getElementById("tierFilter").value;
-  const rows = rankings.filter(r => {
-    if (tier !== "all" && r[2] !== tier) return false;
-    if (!q) return true;
-    return r.join(" ").toLowerCase().includes(q) || projects.some(p => p.school === r[1] && [p.unit,p.title,p.desc].join(" ").toLowerCase().includes(q));
-  });
-  document.getElementById("schoolGrid").innerHTML = rows.map(r => {
-    const ps = projects.filter(p => p.school === r[1]);
-    const body = ps.length ? ps.map(p => {
-      const link = p.noticeUrl ? '<a class="btn primary" target="_blank" href="' + p.noticeUrl + '">学院通知</a>' : '<span class="btn disabled">暂无学院通知原文</span>';
-      const apply = p.applyUrl ? '<a class="btn" target="_blank" href="' + p.applyUrl + '">报名系统</a>' : '';
-      return '<div class="school-project"><strong>' + p.unit + ' · ' + p.title + '</strong><div class="badges"><span class="badge ' + p.status + '">' + statusLabel(p.status) + '</span>' + sourceBadge(p) + '</div><p class="desc">' + p.desc + '</p><div class="actions">' + link + apply + '</div></div>';
-    }).join("") : '<div class="school-project"><strong>计算机相关学院</strong><div class="badges"><span class="badge missing">暂缺学院通知</span></div><p class="desc">本次核对未找到稳定的学院官方夏令营/预推免通知。后续只在找到具体通知页或报名系统时添加链接。</p></div>';
-    return '<article class="school-card"><h3>' + r[0] + '. ' + r[1] + ' <span class="badge rank">' + r[2] + '</span></h3><div class="unit">' + r[3] + ' · 学科评估 ' + r[4] + '</div><p class="desc">' + r[5] + '</p>' + body + '</article>';
-  }).join("");
-}
-
-function renderRanking() {
-  document.getElementById("rankingTable").innerHTML =
-    '<thead><tr><th>排名</th><th>学校</th><th>梯队</th><th>城市</th><th>学科评估</th><th>备注</th></tr></thead><tbody>' +
-    rankings.map(r => '<tr><td>' + r[0] + '</td><td><strong>' + r[1] + '</strong></td><td>' + r[2] + '</td><td>' + r[3] + '</td><td>' + r[4] + '</td><td>' + r[5] + '</td></tr>').join("") +
-    '</tbody>';
-}
-
-function renderAll() {
-  renderSummary();
-  renderPanel("active", "activeGrid");
-  renderPanel("upcoming", "upcomingGrid");
-  renderPanel("closed", "closedGrid");
-  renderSchools();
-  renderRanking();
-}
-
-document.querySelectorAll(".tab").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
-    document.querySelectorAll(".panel").forEach(x => x.classList.remove("active"));
-    btn.classList.add("active");
-    document.getElementById("panel-" + btn.dataset.tab).classList.add("active");
-  });
-});
-["search","typeFilter","tierFilter","sourceFilter"].forEach(id => document.getElementById(id).addEventListener("input", renderAll));
-renderAll();
+function parseDate(s,end=false){if(!/^\d{4}-\d{2}-\d{2}$/.test(s||""))return null;return new Date(s+(end?"T23:59:59+08:00":"T00:00:00+08:00"))}
+function statusOf(p){if(p.status==="watch")return"watch";let st=parseDate(p.start),dl=parseDate(p.deadline,true);if(dl&&now>dl)return"closed";if(st&&now<st)return"upcoming";return p.status||"active"}
+function daysLeft(p){let e=parseDate(p.deadline,true);return e?Math.ceil((e-now)/86400000):null}
+function progress(p){let e=parseDate(p.deadline,true);if(!e)return"";let st=parseDate(p.start)||new Date(e.getTime()-30*86400000),pct=Math.max(0,Math.min(100,Math.round((now-st)/(e-st)*100))),l=daysLeft(p),c=l<=1?"danger":l<=7?"warn":"",txt=l<0?"已截止":l===0?"今天截止":"剩余 "+l+" 天";return`<div class="progress"><div class="plabel"><span>截止进度</span><span>${txt}</span></div><div class="pline"><div class="pfill ${c}" style="width:${pct}%"></div></div></div>`}
+function sLabel(s){return{active:"正在进行",upcoming:"即将开始",watch:"需复核",closed:"已截止"}[s]||s}
+function tLabel(t){return{summer:"夏令营",prepush:"预推免",directory:"招生栏目"}[t]||t}
+function src(p){return p.source==="notice"?'<span class="badge notice">学院通知原文</span>':p.source==="system"?'<span class="badge system">官方系统</span>':'<span class="badge directory">学院栏目/待核</span>'}
+function filtered(arr){let q=document.querySelector("#q").value.trim().toLowerCase(),ty=type.value,ti=tier.value,so=source.value;return arr.filter(p=>(!q||[p.school,p.unit,p.title,p.desc,p.tier].join(" ").toLowerCase().includes(q))&&(ty==="all"||p.type===ty)&&(ti==="all"||p.tier===ti)&&(so==="all"||p.source===so))}
+function linkText(p){return p.source==="notice"?"学院通知原文":p.source==="directory"?"学院栏目/入口":"官方入口"}
+function card(p){let st=statusOf(p),n=p.noticeUrl?`<a class="btn primary" target="_blank" href="${p.noticeUrl}">${linkText(p)}</a>`:'<span class="btn disabled">暂无学院通知原文</span>',a=p.applyUrl?`<a class="btn" target="_blank" href="${p.applyUrl}">报名系统</a>`:'';return`<article class="card ${st}"><div class="row"><div><div class="name">${p.school}</div><div class="unit">${p.unit}</div></div><span class="badge rank">${p.tier}</span></div><div class="badges"><span class="badge ${st}">${sLabel(st)}</span><span class="badge">${tLabel(p.type)}</span>${src(p)}</div><p class="desc"><b>${p.title}</b><br>${p.desc}</p><div class="time"><div><label>开始</label><b>${p.start||"待定"}</b></div><div><label>截止</label><b>${p.deadline||"未明示/待定"}</b></div><div><label>活动/考核</label><b>${p.event||"待定"}</b></div></div>${progress(p)}<div class="actions">${n}${a}</div></article>`}
+function renderStatus(st,id){let arr=filtered(projects.filter(p=>statusOf(p)===st)).sort((a,b)=>(a.deadline||"2099-12-31").localeCompare(b.deadline||"2099-12-31"));document.querySelector("#"+id).innerHTML=arr.length?arr.map(card).join(""):'<div class="empty">当前筛选下没有项目。</div>'}
+function renderSummary(){let c=s=>projects.filter(p=>statusOf(p)===s).length;summary.innerHTML=`<div><b>${c("active")}</b><span>正在进行</span></div><div><b>${c("upcoming")}</b><span>即将开始</span></div><div><b>${c("watch")}</b><span>需人工复核</span></div><div><b>${projects.filter(p=>p.source==="notice").length}</b><span>学院通知原文</span></div><div><b>${ranks.length}</b><span>学校清单</span></div>`}
+function renderSchools(){let q=document.querySelector("#q").value.trim().toLowerCase(),ti=tier.value;let rows=ranks.filter(r=>(ti==="all"||r[2]===ti)&&(!q||r.join(" ").toLowerCase().includes(q)||projects.some(p=>p.school===r[1]&&[p.unit,p.title,p.desc].join(" ").toLowerCase().includes(q))));schools.innerHTML=rows.map(r=>{let ps=projects.filter(p=>p.school===r[1]);let body=ps.length?ps.map(p=>`<div class="item"><b>${p.unit} · ${p.title}</b><div class="badges"><span class="badge ${statusOf(p)}">${sLabel(statusOf(p))}</span>${src(p)}</div><p class="desc">${p.desc}</p><div class="actions">${p.noticeUrl?`<a class="btn primary" target="_blank" href="${p.noticeUrl}">${linkText(p)}</a>`:'<span class="btn disabled">暂无学院通知原文</span>'}${p.applyUrl?`<a class="btn" target="_blank" href="${p.applyUrl}">报名系统</a>`:''}</div></div>`).join(""):'<div class="item"><b>计算机相关学院</b><div class="badges"><span class="badge watch">需人工复核</span></div><p class="desc">本次未确认到稳定的2026计算机类学院官方通知；后续只在找到具体通知页或官方系统时加入项目卡片。</p></div>';return`<article class="school"><h3>${r[0]}. ${r[1]} <span class="badge rank">${r[2]}</span></h3><div class="unit">${r[3]} · 学科参考 ${r[4]}</div><p class="desc">${r[5]}</p>${body}</article>`}).join("")}
+function renderRanking(){ranking.innerHTML='<thead><tr><th>序号</th><th>学校</th><th>梯队</th><th>城市</th><th>计算机参考</th><th>备注</th></tr></thead><tbody>'+ranks.map(r=>`<tr><td>${r[0]}</td><td><b>${r[1]}</b></td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td class="ranknote">${r[5]}</td></tr>`).join("")+'</tbody>'}
+function render(){renderSummary();renderStatus("active","active");renderStatus("upcoming","upcoming");renderStatus("watch","watch");renderStatus("closed","closed");renderSchools();renderRanking()}
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelector("#panel-"+b.dataset.tab).classList.add("active")});
+["q","type","tier","source"].forEach(id=>document.querySelector("#"+id).addEventListener("input",render));
+render();
 </script>
 </body>
 </html>
